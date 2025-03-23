@@ -9,7 +9,8 @@ SRCS	:= fdf.c\
 	bresenham_alg.c\
 	manage_map_info.c\
 	projections_3d.c\
-	manage_window.c
+	manage_window.c\
+	mlx_hooks.c
 
 OBJS	:= ${SRCS:.c=.o}
 

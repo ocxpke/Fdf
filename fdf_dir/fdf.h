@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:51:40 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/03/21 20:18:58 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/03/23 19:25:42 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,7 @@ void				display_main_projection(t_window *win_info,
 						t_map_info *map_info);
 
 int					init_window_components(t_window *win_info);
+void				my_key_hook(mlx_key_data_t keydata, void *win_info);
+void				zoom_hook(double xdelta, double ydelta, void *param);
+
 #endif
