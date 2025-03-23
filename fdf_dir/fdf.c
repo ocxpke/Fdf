@@ -24,6 +24,9 @@ int	main(int argc, char **argv)
 	print_map_info(map_info);
 	init_window_components(&window_info);
 	display_main_projection(&window_info, map_info);
+	mlx_image_to_window(window_info.window, window_info.img,
+		round(window_info.init_width * 0.025), round(window_info.init_heigth
+			* 0.01));
 	mlx_loop(window_info.window);
 	mlx_terminate(window_info.window);
 	free_vec_list(&map_info->vector_list);

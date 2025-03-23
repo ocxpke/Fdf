@@ -1,0 +1,22 @@
+==23545== Memcheck, a memory error detector
+==23545== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==23545== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
+==23545== Command: ./fdf ../test_maps/42.fdf
+==23545== Parent PID: 23524
+==23545== 
+==23545== 
+==23545== HEAP SUMMARY:
+==23545==     in use at exit: 322,309 bytes in 3,221 blocks
+==23545==   total heap usage: 177,833 allocs, 174,612 frees, 35,668,882 bytes allocated
+==23545== 
+==23545== LEAK SUMMARY:
+==23545==    definitely lost: 0 bytes in 0 blocks
+==23545==    indirectly lost: 0 bytes in 0 blocks
+==23545==      possibly lost: 0 bytes in 0 blocks
+==23545==    still reachable: 322,277 bytes in 3,220 blocks
+==23545==         suppressed: 32 bytes in 1 blocks
+==23545== Reachable blocks (those to which a pointer was found) are not shown.
+==23545== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==23545== 
+==23545== For lists of detected and suppressed errors, rerun with: -s
+==23545== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
