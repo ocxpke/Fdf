@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:51:40 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/03/23 19:25:42 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/03/30 21:27:49 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,17 @@ void				print_vec_list(t_vector *list);
 void				draw_line(mlx_image_t *img, t_coordinates v0,
 						t_coordinates v1);
 
-void				init_map_info(char *file_in, t_map_info **map_info);
+t_map_info			*init_map_info(char *file_in);
 void				print_map_info(t_map_info *map_info);
 
-void				display_main_projection(t_window *win_info,
-						t_map_info *map_info);
-
-int					init_window_components(t_window *win_info);
+t_window			*init_window_components(void);
 void				my_key_hook(mlx_key_data_t keydata, void *win_info);
 void				zoom_hook(double xdelta, double ydelta, void *param);
+
+t_coordinates		**init_points_matrix(t_map_info *map_info);
+t_coordinates		**free_back_coord(t_coordinates **points_matrix);
+
+void				display_main_projection(t_window *win_info,
+						t_map_info *map_info, t_coordinates **p_matrix);
 
 #endif

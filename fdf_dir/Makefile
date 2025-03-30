@@ -5,11 +5,12 @@ LIBMLX	:= ../MLX42
 HEADERS	:= -I ./include -I $(LIBMLX)/include
 LIBS	:= ./libft/libft.a $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 SRCS	:= fdf.c\
-	manage_vectors.c\
 	bresenham_alg.c\
-	manage_map_info.c\
-	projections_3d.c\
 	manage_window.c\
+	manage_vectors.c\
+	manage_map_info.c\
+	manage_display_points.c\
+	isometric_projection.c\
 	mlx_hooks.c
 
 OBJS	:= ${SRCS:.c=.o}
