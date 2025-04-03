@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:48:47 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/03/20 20:39:36 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/03 20:06:54 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,18 @@ static void	draw_vertical_line(mlx_image_t *img, t_bresenham data)
 	}
 }
 
-void	draw_line(mlx_image_t *img, t_coordinates v0, t_coordinates v1)
+void	draw_line(mlx_image_t *img, t_center_model *model_values,
+		t_coordinates v0, t_coordinates v1)
 {
 	t_bresenham	data;
 
-	ft_printf("(%d, %d) to (%d, %d)\n", v0.x, v0.y, v1.x, v1.y);
-	data.x0 = v0.x;
-	data.x1 = v1.x;
-	data.y0 = v0.y;
-	data.y1 = v1.y;
+	data.x0 = v0.x + (model_values->min_x * -1) + model_values->center_x_axis;
+	data.x1 = v1.x + (model_values->min_x * -1) + model_values->center_x_axis;
+	data.y0 = v0.y + (model_values->min_y * -1) + model_values->center_y_axis;
+	data.y1 = v1.y + (model_values->min_y * -1) + model_values->center_y_axis;
 	data.direction = 1;
-	if (abs(v1.x - v0.x) >= abs(v1.y - v0.y))
+	ft_printf("(%d, %d) to (%d, %d)\n", data.x0, data.x1, data.y0, data.y1);
+	if (abs(data.x1 - data.x0) >= abs(data.y1 - data.y0))
 		draw_horizontal_line(img, data);
 	else
 		draw_vertical_line(img, data);

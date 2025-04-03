@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:51:40 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/03/30 21:27:49 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/03 20:00:32 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,19 @@ typedef struct s_window
 {
 	mlx_t			*window;
 	mlx_image_t		*img;
-	int32_t			init_width;
-	int32_t			init_heigth;
+	int				init_width;
+	int				init_heigth;
 }					t_window;
+
+typedef struct s_center_model
+{
+	int				max_x;
+	int				min_x;
+	int				max_y;
+	int				min_y;
+	int				center_x_axis;
+	int				center_y_axis;
+}					t_center_model;
 
 typedef struct s_coordenates
 {
@@ -74,8 +84,8 @@ int					add_vector(t_vector **vectors, int x, int y, int z);
 void				free_vec_list(t_vector **vectors);
 void				print_vec_list(t_vector *list);
 
-void				draw_line(mlx_image_t *img, t_coordinates v0,
-						t_coordinates v1);
+void				draw_line(mlx_image_t *img, t_center_model *model_values,
+						t_coordinates v0, t_coordinates v1);
 
 t_map_info			*init_map_info(char *file_in);
 void				print_map_info(t_map_info *map_info);
