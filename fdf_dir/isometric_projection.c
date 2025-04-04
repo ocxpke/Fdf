@@ -6,18 +6,20 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 19:37:51 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/03 20:14:05 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/04 20:00:01 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	init_model_values(t_center_model *model_values)
+void	init_model_values(t_center_model *model_values, t_map_info *map_info)
 {
 	model_values->max_x = 0;
 	model_values->max_y = 0;
+	model_values->max_z = map_info->highest_point;
 	model_values->min_x = 0;
 	model_values->min_y = 0;
+	model_values->min_z = map_info->lowest_point;
 	model_values->center_x_axis = 0;
 	model_values->center_y_axis = 0;
 }
@@ -65,14 +67,17 @@ void	calculate_main_projection(t_window *win_info, t_map_info *map_info,
 			* cos(0.523599);
 		p_matrix[aux->x][aux->y].y = ((aux->x * spacing) - (aux->y * spacing))
 			* sin(0.523599) - (aux->z * spacing);
+		p_matrix[aux->x][aux->y].z = aux->z;
 		set_model_values(model_values, p_matrix[aux->x][aux->y].x,
 			p_matrix[aux->x][aux->y].y);
 		aux = aux->next;
 	}
+	model_values->min_x *= -1;
+	model_values->min_y *= -1;
 	model_values->center_x_axis = ((win_info->img->width - (model_values->max_x
-					+ (model_values->min_x * -1))) / 2);
+					+ model_values->min_x)) / 2);
 	model_values->center_y_axis = ((win_info->img->height - (model_values->max_y
-					+ (model_values->min_y * -1))) / 2);
+					+ model_values->min_y)) / 2);
 }
 
 // change
@@ -129,7 +134,7 @@ void	display_main_projection(t_window *win_info, t_map_info *map_info,
 	int				i;
 	int				j;
 
-	init_model_values(&model_values);
+	init_model_values(&model_values, map_info);
 	calculate_main_projection(win_info, map_info, p_matrix, &model_values);
 	i = 0;
 	while (i <= map_info->x_length)

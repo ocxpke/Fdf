@@ -11,6 +11,7 @@ SRCS	:= fdf.c\
 	manage_map_info.c\
 	manage_display_points.c\
 	isometric_projection.c\
+	aux_bresenham.c\
 	mlx_hooks.c
 
 OBJS	:= ${SRCS:.c=.o}

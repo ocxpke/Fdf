@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:51:40 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/03 20:00:32 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/04 21:17:45 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,15 @@ typedef struct s_center_model
 	int				min_y;
 	int				center_x_axis;
 	int				center_y_axis;
+	int				min_z;
+	int				max_z;
 }					t_center_model;
 
 typedef struct s_coordenates
 {
 	int				x;
 	int				y;
+	int				z;
 }					t_coordinates;
 
 typedef struct s_vector
@@ -70,6 +73,8 @@ typedef struct s_bresenham
 	int				x1;
 	int				y0;
 	int				y1;
+	int				z0;
+	int				z1;
 	int				delta_x;
 	int				delta_y;
 	int				point;
@@ -99,5 +104,7 @@ t_coordinates		**free_back_coord(t_coordinates **points_matrix);
 
 void				display_main_projection(t_window *win_info,
 						t_map_info *map_info, t_coordinates **p_matrix);
+
+uint32_t			set_color(t_center_model *model_values, t_bresenham data);
 
 #endif
