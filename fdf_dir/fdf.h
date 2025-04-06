@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:51:40 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/04 21:17:45 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/06 22:42:10 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,13 @@ typedef struct s_bresenham
 	int				direction;
 	int				oper1;
 	int				oper2;
+	uint32_t		color_print;
+	uint32_t		color_z0;
+	uint32_t		color_z1;
+	uint32_t		color_splot_red;
+	int				splot_red;
+	int				splot_green;
+	int				splot_blue;
 }					t_bresenham;
 
 void				init_vectors(int fd, t_vector **vector_list);
@@ -105,6 +112,7 @@ t_coordinates		**free_back_coord(t_coordinates **points_matrix);
 void				display_main_projection(t_window *win_info,
 						t_map_info *map_info, t_coordinates **p_matrix);
 
-uint32_t			set_color(t_center_model *model_values, t_bresenham data);
+void				set_colors(t_center_model *model_values, t_bresenham *data,
+						int color_parts);
 
 #endif

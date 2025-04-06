@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:46:16 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/02 20:38:38 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:19:44 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_window	*init_window_components(void)
 	take_window_data(win_info);
 	win_info->img = mlx_new_image(win_info->window, round(win_info->init_width
 				* 0.95), round(win_info->init_heigth * 0.95));
-	memset(win_info->img->pixels, 125, win_info->img->width
+	memset(win_info->img->pixels, 0, win_info->img->width
 		* win_info->img->height * sizeof(int32_t));
 	return (win_info);
 }
