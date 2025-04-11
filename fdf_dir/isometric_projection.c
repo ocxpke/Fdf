@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 19:37:51 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/11 21:11:16 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/11 21:57:33 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,30 @@ int	calculate_spacing(t_window *win_info, t_map_info *map_info)
 void	calculate_main_projection(t_window *win_info, t_map_info *map_info,
 		t_coordinates **p_matrix)
 {
-	t_vector	*aux;
+	t_vector		*aux;
+	t_center_model	*m_val;
 
-	map_info->model_values->spacing = calculate_spacing(win_info, map_info);
+	m_val = map_info->model_values;
+	m_val->spacing = calculate_spacing(win_info, map_info);
 	aux = map_info->vector_list;
 	while (aux)
 	{
-		p_matrix[aux->x][aux->y].x = ((aux->x * map_info->model_values->spacing)
-				+ (aux->y * map_info->model_values->spacing)) * cos(0.523599);
-		p_matrix[aux->x][aux->y].y = ((aux->x * map_info->model_values->spacing)
-				- (aux->y * map_info->model_values->spacing)) * sin(0.523599)
-			- (aux->z * map_info->model_values->spacing);
+		p_matrix[aux->x][aux->y].x = (((aux->x * m_val->spacing) + (aux->y
+						* m_val->spacing)) * cos(0.523599)) * m_val->zoom;
+		p_matrix[aux->x][aux->y].y = (((aux->x * m_val->spacing) - (aux->y
+						* m_val->spacing)) * sin(0.523599) - (aux->z
+					* m_val->spacing)) * m_val->zoom;
 		p_matrix[aux->x][aux->y].z = aux->z;
-		set_model_values(map_info->model_values, p_matrix[aux->x][aux->y].x,
+		set_model_values(m_val, p_matrix[aux->x][aux->y].x,
 			p_matrix[aux->x][aux->y].y);
 		aux = aux->next;
 	}
-	map_info->model_values->min_x *= -1;
-	map_info->model_values->min_y *= -1;
-	map_info->model_values->center_x_axis = ((win_info->img->width
-				- (map_info->model_values->max_x
-					+ map_info->model_values->min_x)) / 2);
-	map_info->model_values->center_y_axis = ((win_info->img->height
-				- (map_info->model_values->max_y
-					+ map_info->model_values->min_y)) / 2);
+	m_val->min_x *= -1;
+	m_val->min_y *= -1;
+	m_val->center_x_axis = ((win_info->img->width - (m_val->max_x
+					+ m_val->min_x)) / 2);
+	m_val->center_y_axis = ((win_info->img->height - (m_val->max_y
+					+ m_val->min_y)) / 2);
 }
 
 /**

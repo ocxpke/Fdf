@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:48:47 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/11 21:32:13 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/11 22:00:53 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,23 +103,18 @@ void	draw_line(mlx_image_t *img, t_center_model *model_values,
 {
 	t_bresenham	data;
 
-	data.x0 = ((v0.x * model_values->zoom) + model_values->min_x
-			+ model_values->center_x_axis);
-	data.x1 = (v1.x * model_values->zoom) + model_values->min_x
-		+ model_values->center_x_axis;
-	data.y0 = (v0.y * model_values->zoom) + model_values->min_y
-		+ model_values->center_y_axis;
-	data.y1 = (v1.y * model_values->zoom) + model_values->min_y
-		+ model_values->center_y_axis;
+	data.x0 = ((v0.x) + model_values->min_x + model_values->center_x_axis);
+	data.x1 = (v1.x) + model_values->min_x + model_values->center_x_axis;
+	data.y0 = (v0.y) + model_values->min_y + model_values->center_y_axis;
+	data.y1 = (v1.y) + model_values->min_y + model_values->center_y_axis;
 	data.z0 = v0.z;
 	data.z1 = v1.z;
 	data.direction = 1;
-	if ((uint32_t)data.x0 > UINT32_MAX || (uint32_t)data.x1 > UINT32_MAX
-		|| (uint32_t)data.y0 > UINT32_MAX || (uint32_t)data.y1 > UINT32_MAX)
-		return ;
+	/*
 	if (!point_in_field(data.x0, data.y0, img) && !point_in_field(data.x1,
 			data.y1, img))
 		return ;
+	*/
 	// ft_printf("(%d, %d) to (%d, %d)\n", data.x0, data.x1, data.y0, data.y1);
 	if (abs(data.x1 - data.x0) >= abs(data.y1 - data.y0))
 		draw_horizontal_line(img, model_values, data);

@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 20:43:08 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/11 21:25:23 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/11 21:47:42 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ void	recalculate_values(t_fdf_data *fdf_data)
 	while (aux)
 	{
 		fdf_data->dis_points[aux->x][aux->y].x = (double)(((aux->x
-					* fdf_data->map_info->model_values->spacing) + (aux->y
-					* fdf_data->map_info->model_values->spacing))
-			* cos(0.523599)) * fdf_data->map_info->model_values->zoom;
+						* fdf_data->map_info->model_values->spacing) + (aux->y
+						* fdf_data->map_info->model_values->spacing))
+				* cos(0.523599)) * fdf_data->map_info->model_values->zoom;
 		fdf_data->dis_points[aux->x][aux->y].y = (double)(((aux->x
-					* fdf_data->map_info->model_values->spacing) - (aux->y
+						* fdf_data->map_info->model_values->spacing) - (aux->y
+						* fdf_data->map_info->model_values->spacing))
+				* sin(0.523599) - (aux->z
 					* fdf_data->map_info->model_values->spacing))
-			* sin(0.523599) - (aux->z
-				* fdf_data->map_info->model_values->spacing))
 			* fdf_data->map_info->model_values->zoom;
 		aux = aux->next;
 	}
@@ -39,7 +39,8 @@ void	recalculate_projection(t_fdf_data *fdf_data)
 	int	j;
 
 	i = 0;
-	//recalculate_values(fdf_data);
+	calculate_main_projection(fdf_data->win_info, fdf_data->map_info,
+		fdf_data->dis_points);
 	while (i <= fdf_data->map_info->x_length)
 	{
 		j = 0;

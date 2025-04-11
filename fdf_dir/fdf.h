@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:51:40 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/11 21:24:26 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/11 21:46:40 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 # include "./libft/libft.h"
 # include <GLFW/glfw3.h>
 # include <fcntl.h>
+# include <limits.h>
 # include <math.h>
 # include <stdio.h>
 # include <string.h>
-# include <limits.h>
 
 typedef struct s_window
 {
@@ -126,5 +126,8 @@ void				init_model_values(t_map_info *map_info);
 void				change_zoom_value(t_fdf_data *fdf_data, int mode);
 
 void				recalculate_projection(t_fdf_data *fdf_data);
+
+void				calculate_main_projection(t_window *win_info,
+						t_map_info *map_info, t_coordinates **p_matrix);
 
 #endif
