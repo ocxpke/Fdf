@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:51:40 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/06 22:42:10 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/11 21:24:26 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <math.h>
 # include <stdio.h>
 # include <string.h>
+# include <limits.h>
 
 typedef struct s_window
 {
@@ -39,6 +40,8 @@ typedef struct s_center_model
 	int				center_y_axis;
 	int				min_z;
 	int				max_z;
+	int				spacing;
+	double			zoom;
 }					t_center_model;
 
 typedef struct s_coordenates
@@ -65,6 +68,7 @@ typedef struct s_map_info
 	int				x_offset;
 	int				y_offset;
 	t_vector		*vector_list;
+	t_center_model	*model_values;
 }					t_map_info;
 
 typedef struct s_bresenham
@@ -83,13 +87,14 @@ typedef struct s_bresenham
 	int				oper1;
 	int				oper2;
 	uint32_t		color_print;
-	uint32_t		color_z0;
-	uint32_t		color_z1;
-	uint32_t		color_splot_red;
-	int				splot_red;
-	int				splot_green;
-	int				splot_blue;
 }					t_bresenham;
+
+typedef struct s_fdf_data
+{
+	t_coordinates	**dis_points;
+	t_map_info		*map_info;
+	t_window		*win_info;
+}					t_fdf_data;
 
 void				init_vectors(int fd, t_vector **vector_list);
 int					add_vector(t_vector **vectors, int x, int y, int z);
@@ -112,7 +117,14 @@ t_coordinates		**free_back_coord(t_coordinates **points_matrix);
 void				display_main_projection(t_window *win_info,
 						t_map_info *map_info, t_coordinates **p_matrix);
 
-void				set_colors(t_center_model *model_values, t_bresenham *data,
-						int color_parts);
+void				set_colors(t_center_model *model_values, t_bresenham *data);
+
+int					point_in_field(int x, int y, mlx_image_t *img);
+
+void				init_model_values(t_map_info *map_info);
+
+void				change_zoom_value(t_fdf_data *fdf_data, int mode);
+
+void				recalculate_projection(t_fdf_data *fdf_data);
 
 #endif

@@ -12,6 +12,9 @@ SRCS	:= fdf.c\
 	manage_display_points.c\
 	isometric_projection.c\
 	aux_bresenham.c\
+	init_model_values.c\
+	recalculate_projection.c\
+	manage_zoom.c\
 	mlx_hooks.c
 
 OBJS	:= ${SRCS:.c=.o}

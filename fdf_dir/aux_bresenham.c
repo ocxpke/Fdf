@@ -6,50 +6,17 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 18:55:01 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/06 22:46:09 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/11 19:49:54 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/*
-int	assign_color(int z, int min, int hexsection)
+uint32_t	assign_color(int z0, int z1, int min, double pensection)
 {
-	int	real_value;
+	double	real_value;
 
-	real_value = z + (min * -1);
-	if (real_value <= hexsection)
-		return (1);
-	else if ((real_value > hexsection) && (real_value <= (hexsection * 2)))
-		return (2);
-	else
-		return (3);
-}
-
-uint32_t	set_color(t_center_model *model_values, t_bresenham data)
-{
-	int	trisection;
-	int	color_0;
-	int	color_1;
-
-	if (model_values->max_z == model_values->min_z)
-		return (0x00FFFFFF);
-	trisection = (model_values->max_z + (model_values->min_z * -1)) / 3;
-	color_0 = assign_color(data.z0, model_values->min_z, trisection);
-	color_1 = assign_color(data.z1, model_values->min_z, trisection);
-	if (color_0 == color_1)
-		return ((0xFF << (color_0 * 8)) | 0xFF);
-	else if (abs(color_0 - color_1) == 2)
-		return ((0xFF << (2 * 8)) | 0xFF);
-	else
-		return ((0xFF << (color_0 * 8)) | (0xFF << (color_1 * 8)) | 0xFF);
-}
-		*/
-uint32_t	assign_color(int z, int min, int pensection)
-{
-	int	real_value;
-
-	real_value = z + (min * -1);
+	real_value = ((double)(z0 + (min * -1)) + (z1 + (min * -1))) / 2;
 	if (real_value <= pensection)
 		return (0x0000FFFF);
 	else if ((real_value > pensection) && (real_value <= (pensection * 2)))
@@ -64,21 +31,24 @@ uint32_t	assign_color(int z, int min, int pensection)
 		return (0xFF0000FF);
 }
 
-void	set_colors(t_center_model *model_values, t_bresenham *data,
-		int color_parts)
+void	set_colors(t_center_model *model_values, t_bresenham *data)
 {
-	int	pensection;
+	double	pensection;
 
 	if (model_values->max_z == model_values->min_z)
 	{
-		data->color_z0 = 0x00FFFFFF;
-		data->color_z1 = 0x00FFFFFF;
-		data->color_print = data->color_z0;
+		data->color_print = 0x00FFFFFF;
 		return ;
 	}
-	pensection = (model_values->max_z + (model_values->min_z * -1)) / 5;
-	data->color_z0 = assign_color(data->z0, model_values->min_z, pensection);
-	data->color_z1 = assign_color(data->z0, model_values->min_z, pensection);
-	data->color_print = data->color_z0;
-	color_parts = 0;
+	pensection = ((double)model_values->max_z + (model_values->min_z * -1)) / 5;
+	data->color_print = assign_color(data->z0, data->z1, model_values->min_z,
+			pensection);
+}
+
+int	point_in_field(int x, int y, mlx_image_t *img)
+{
+	if ((((y <= (int)img->height) && (y >= 0)) && ((x <= (int)img->width)
+				&& (x >= 0))))
+		return (1);
+	return (0);
 }

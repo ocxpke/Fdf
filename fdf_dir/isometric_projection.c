@@ -6,23 +6,11 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 19:37:51 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/04 20:00:01 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/11 21:11:16 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	init_model_values(t_center_model *model_values, t_map_info *map_info)
-{
-	model_values->max_x = 0;
-	model_values->max_y = 0;
-	model_values->max_z = map_info->highest_point;
-	model_values->min_x = 0;
-	model_values->min_y = 0;
-	model_values->min_z = map_info->lowest_point;
-	model_values->center_x_axis = 0;
-	model_values->center_y_axis = 0;
-}
 
 void	set_model_values(t_center_model *model_values, int x, int y)
 {
@@ -54,75 +42,33 @@ int	calculate_spacing(t_window *win_info, t_map_info *map_info)
 
 // add offset
 void	calculate_main_projection(t_window *win_info, t_map_info *map_info,
-		t_coordinates **p_matrix, t_center_model *model_values)
+		t_coordinates **p_matrix)
 {
 	t_vector	*aux;
-	int			spacing;
 
-	spacing = calculate_spacing(win_info, map_info);
+	map_info->model_values->spacing = calculate_spacing(win_info, map_info);
 	aux = map_info->vector_list;
 	while (aux)
 	{
-		p_matrix[aux->x][aux->y].x = ((aux->x * spacing) + (aux->y * spacing))
-			* cos(0.523599);
-		p_matrix[aux->x][aux->y].y = ((aux->x * spacing) - (aux->y * spacing))
-			* sin(0.523599) - (aux->z * spacing);
+		p_matrix[aux->x][aux->y].x = ((aux->x * map_info->model_values->spacing)
+				+ (aux->y * map_info->model_values->spacing)) * cos(0.523599);
+		p_matrix[aux->x][aux->y].y = ((aux->x * map_info->model_values->spacing)
+				- (aux->y * map_info->model_values->spacing)) * sin(0.523599)
+			- (aux->z * map_info->model_values->spacing);
 		p_matrix[aux->x][aux->y].z = aux->z;
-		set_model_values(model_values, p_matrix[aux->x][aux->y].x,
+		set_model_values(map_info->model_values, p_matrix[aux->x][aux->y].x,
 			p_matrix[aux->x][aux->y].y);
 		aux = aux->next;
 	}
-	model_values->min_x *= -1;
-	model_values->min_y *= -1;
-	model_values->center_x_axis = ((win_info->img->width - (model_values->max_x
-					+ model_values->min_x)) / 2);
-	model_values->center_y_axis = ((win_info->img->height - (model_values->max_y
-					+ model_values->min_y)) / 2);
+	map_info->model_values->min_x *= -1;
+	map_info->model_values->min_y *= -1;
+	map_info->model_values->center_x_axis = ((win_info->img->width
+				- (map_info->model_values->max_x
+					+ map_info->model_values->min_x)) / 2);
+	map_info->model_values->center_y_axis = ((win_info->img->height
+				- (map_info->model_values->max_y
+					+ map_info->model_values->min_y)) / 2);
 }
-
-// change
-/*
-void	add_offset(t_window *win_info, t_map_info *map_info,
-		t_coordinates **p_matrix)
-{
-	int			min_x;
-	int			min_y;
-	int			max_x;
-	int			max_y;
-	t_vector	*aux;
-
-	aux = map_info->vector_list;
-	min_x = 0;
-	min_y = 0;
-	max_x = 0;
-	max_y = 0;
-	while (aux)
-	{
-		if (p_matrix[aux->x][aux->y].x < min_x)
-			min_x = p_matrix[aux->x][aux->y].x;
-		if (p_matrix[aux->x][aux->y].y < min_y)
-			min_y = p_matrix[aux->x][aux->y].y;
-		if (p_matrix[aux->x][aux->y].x > max_x)
-			max_x = p_matrix[aux->x][aux->y].x;
-		if (p_matrix[aux->x][aux->y].y > max_y)
-			max_y = p_matrix[aux->x][aux->y].y;
-		aux = aux->next;
-	}
-	min_x *= -1;
-	min_y *= -1;
-	aux = map_info->vector_list;
-	printf("AAAAAAAAAAAAA --> %d, %d, %d, %d\n", win_info->img->height, max_y,
-		min_y, ((win_info->img->height - (max_y + (min_y * -1))) / 2));
-	while (aux)
-	{
-		p_matrix[aux->x][aux->y].x += min_x + ((win_info->img->width - (max_x
-						+ min_x)) / 2);
-		p_matrix[aux->x][aux->y].y += min_y + ((win_info->img->height - (max_y
-						+ min_y)) / 2);
-		aux = aux->next;
-	}
-}
-	*/
 
 /**
  * Recorro 2 veces la matriz de puntos OPTIMIZAR ESTO?
@@ -130,12 +76,11 @@ void	add_offset(t_window *win_info, t_map_info *map_info,
 void	display_main_projection(t_window *win_info, t_map_info *map_info,
 		t_coordinates **p_matrix)
 {
-	t_center_model	model_values;
-	int				i;
-	int				j;
+	int	i;
+	int	j;
 
-	init_model_values(&model_values, map_info);
-	calculate_main_projection(win_info, map_info, p_matrix, &model_values);
+	init_model_values(map_info);
+	calculate_main_projection(win_info, map_info, p_matrix);
 	i = 0;
 	while (i <= map_info->x_length)
 	{
@@ -143,10 +88,10 @@ void	display_main_projection(t_window *win_info, t_map_info *map_info,
 		while (j <= map_info->y_length)
 		{
 			if (i < map_info->x_length)
-				draw_line(win_info->img, &model_values, p_matrix[i][j],
+				draw_line(win_info->img, map_info->model_values, p_matrix[i][j],
 					p_matrix[i + 1][j]);
 			if (j < map_info->y_length)
-				draw_line(win_info->img, &model_values, p_matrix[i][j],
+				draw_line(win_info->img, map_info->model_values, p_matrix[i][j],
 					p_matrix[i][j + 1]);
 			j++;
 		}

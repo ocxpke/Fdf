@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:52:33 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/02 20:40:09 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/11 21:05:08 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int argc, char **argv)
 	t_coordinates	**dis_points;
 	t_map_info		*map_info;
 	t_window		*win_info;
+	t_fdf_data		fdf_data;
 
 	if (argc != 2)
 		return (-1);
@@ -26,5 +27,10 @@ int	main(int argc, char **argv)
 	display_main_projection(win_info, map_info, dis_points);
 	mlx_image_to_window(win_info->window, win_info->img, win_info->init_width
 		* 0.025, win_info->init_heigth * 0.005);
+	fdf_data.dis_points = dis_points;
+	fdf_data.map_info = map_info;
+	fdf_data.win_info = win_info;
+	mlx_key_hook(win_info->window, &my_key_hook, &fdf_data);
+	mlx_scroll_hook(win_info->window, &zoom_hook, &fdf_data);
 	mlx_loop(win_info->window);
 }
