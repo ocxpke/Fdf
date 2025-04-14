@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:48:47 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/11 22:00:53 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/14 19:39:04 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	manage_decision_param(t_bresenham *data)
 	data->decision_param += data->oper2;
 }
 
-static void	draw_horizontal_line(mlx_image_t *img, t_center_model *model_values,
+static void	draw_horizontal_line(mlx_image_t *img, t_model_values *model_values,
 		t_bresenham data)
 {
 	int	i;
@@ -68,7 +68,7 @@ static void	draw_horizontal_line(mlx_image_t *img, t_center_model *model_values,
 	}
 }
 
-static void	draw_vertical_line(mlx_image_t *img, t_center_model *model_values,
+static void	draw_vertical_line(mlx_image_t *img, t_model_values *model_values,
 		t_bresenham data)
 {
 	int	i;
@@ -98,24 +98,21 @@ static void	draw_vertical_line(mlx_image_t *img, t_center_model *model_values,
 	}
 }
 
-void	draw_line(mlx_image_t *img, t_center_model *model_values,
+void	draw_line(mlx_image_t *img, t_model_values *model_values,
 		t_coordinates v0, t_coordinates v1)
 {
 	t_bresenham	data;
 
-	data.x0 = ((v0.x) + model_values->min_x + model_values->center_x_axis);
-	data.x1 = (v1.x) + model_values->min_x + model_values->center_x_axis;
-	data.y0 = (v0.y) + model_values->min_y + model_values->center_y_axis;
-	data.y1 = (v1.y) + model_values->min_y + model_values->center_y_axis;
+	data.x0 = v0.x + model_values->offset_x + model_values->center_x_axis;
+	data.x1 = v1.x + model_values->offset_x + model_values->center_x_axis;
+	data.y0 = v0.y + model_values->offset_y + model_values->center_y_axis;
+	data.y1 = v1.y + model_values->offset_y + model_values->center_y_axis;
 	data.z0 = v0.z;
 	data.z1 = v1.z;
 	data.direction = 1;
-	/*
 	if (!point_in_field(data.x0, data.y0, img) && !point_in_field(data.x1,
 			data.y1, img))
 		return ;
-	*/
-	// ft_printf("(%d, %d) to (%d, %d)\n", data.x0, data.x1, data.y0, data.y1);
 	if (abs(data.x1 - data.x0) >= abs(data.y1 - data.y0))
 		draw_horizontal_line(img, model_values, data);
 	else

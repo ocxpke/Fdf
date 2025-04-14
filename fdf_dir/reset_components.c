@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   manage_zoom.c                                      :+:      :+:    :+:   */
+/*   reset_components.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/11 19:59:27 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/14 19:18:23 by jose-ara         ###   ########.fr       */
+/*   Created: 2025/04/14 19:00:00 by jose-ara          #+#    #+#             */
+/*   Updated: 2025/04/14 19:40:20 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	change_zoom_value(t_fdf_data *fdf_data, int mode)
+void	reset_user_values(t_fdf_data *fdf_data)
 {
+	t_model_values	*model_values;
+
 	reset_user_view(fdf_data->win_info);
-	if (!mode && (fdf_data->map_info->model_values->zoom > ZOOM_MIN))
-		fdf_data->map_info->model_values->zoom -= ZOOM_CHANGE;
-	else if (mode && (fdf_data->map_info->model_values->zoom < ZOOM_MAX))
-		fdf_data->map_info->model_values->zoom += ZOOM_CHANGE;
+	model_values = fdf_data->map_info->model_values;
+	model_values->user_x_pos = 0;
+	model_values->user_y_pos = 0;
+	model_values->zoom = 1;
 	redraw_projection(fdf_data);
+}
+
+void	reset_user_view(t_window *win_info)
+{
+	memset(win_info->img->pixels, BACKGROUND_COLOR, win_info->img->width
+		* win_info->img->height * sizeof(int32_t));
 }

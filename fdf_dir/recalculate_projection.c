@@ -6,39 +6,34 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 20:43:08 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/11 21:47:42 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/14 19:40:47 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	recalculate_values(t_fdf_data *fdf_data)
+void	set_offsets(mlx_image_t *img, t_model_values *model_values)
 {
-	t_vector	*aux;
+	int	total_width;
+	int	total_height;
 
-	aux = fdf_data->map_info->vector_list;
-	while (aux)
-	{
-		fdf_data->dis_points[aux->x][aux->y].x = (double)(((aux->x
-						* fdf_data->map_info->model_values->spacing) + (aux->y
-						* fdf_data->map_info->model_values->spacing))
-				* cos(0.523599)) * fdf_data->map_info->model_values->zoom;
-		fdf_data->dis_points[aux->x][aux->y].y = (double)(((aux->x
-						* fdf_data->map_info->model_values->spacing) - (aux->y
-						* fdf_data->map_info->model_values->spacing))
-				* sin(0.523599) - (aux->z
-					* fdf_data->map_info->model_values->spacing))
-			* fdf_data->map_info->model_values->zoom;
-		aux = aux->next;
-	}
+	total_width = model_values->max_x + model_values->min_x;
+	total_height = model_values->max_y + model_values->min_y;
+	model_values->offset_x = model_values->min_x + model_values->user_x_pos;
+	model_values->offset_y = model_values->min_y + model_values->user_y_pos;
+	if (total_width >= (int)img->width)
+		model_values->offset_x -= ((total_width - img->width) / 2);
+	if (total_height >= (int)img->height)
+		model_values->offset_y -= ((total_height - img->height) / 2);
 }
 
-void	recalculate_projection(t_fdf_data *fdf_data)
+void	redraw_projection(t_fdf_data *fdf_data)
 {
 	int	i;
 	int	j;
 
 	i = 0;
+	reset_model_values(fdf_data->map_info->model_values);
 	calculate_main_projection(fdf_data->win_info, fdf_data->map_info,
 		fdf_data->dis_points);
 	while (i <= fdf_data->map_info->x_length)

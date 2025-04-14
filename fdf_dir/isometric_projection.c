@@ -6,25 +6,12 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 19:37:51 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/11 21:57:33 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/14 19:38:26 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	set_model_values(t_center_model *model_values, int x, int y)
-{
-	if (model_values->max_x < x)
-		model_values->max_x = x;
-	if (model_values->min_x > x)
-		model_values->min_x = x;
-	if (model_values->max_y < y)
-		model_values->max_y = y;
-	if (model_values->min_y > y)
-		model_values->min_y = y;
-}
-
-// Fix
 int	calculate_spacing(t_window *win_info, t_map_info *map_info)
 {
 	int	sum;
@@ -35,20 +22,18 @@ int	calculate_spacing(t_window *win_info, t_map_info *map_info)
 		spacing = win_info->img->width / sum;
 	else
 		spacing = win_info->img->height / sum;
-	if (spacing < 3)
-		spacing = 3;
+	if (spacing < MINIMUM_SPACING)
+		spacing = MINIMUM_SPACING;
 	return (spacing);
 }
 
-// add offset
 void	calculate_main_projection(t_window *win_info, t_map_info *map_info,
 		t_coordinates **p_matrix)
 {
 	t_vector		*aux;
-	t_center_model	*m_val;
+	t_model_values	*m_val;
 
 	m_val = map_info->model_values;
-	m_val->spacing = calculate_spacing(win_info, map_info);
 	aux = map_info->vector_list;
 	while (aux)
 	{
@@ -62,12 +47,9 @@ void	calculate_main_projection(t_window *win_info, t_map_info *map_info,
 			p_matrix[aux->x][aux->y].y);
 		aux = aux->next;
 	}
-	m_val->min_x *= -1;
-	m_val->min_y *= -1;
-	m_val->center_x_axis = ((win_info->img->width - (m_val->max_x
-					+ m_val->min_x)) / 2);
-	m_val->center_y_axis = ((win_info->img->height - (m_val->max_y
-					+ m_val->min_y)) / 2);
+	absolute_min_values(m_val);
+	center_model(win_info, m_val);
+	set_offsets(win_info->img, map_info->model_values);
 }
 
 /**
@@ -79,7 +61,7 @@ void	display_main_projection(t_window *win_info, t_map_info *map_info,
 	int	i;
 	int	j;
 
-	init_model_values(map_info);
+	init_model_values(win_info, map_info);
 	calculate_main_projection(win_info, map_info, p_matrix);
 	i = 0;
 	while (i <= map_info->x_length)

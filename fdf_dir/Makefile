@@ -15,7 +15,10 @@ SRCS	:= fdf.c\
 	init_model_values.c\
 	recalculate_projection.c\
 	manage_zoom.c\
-	mlx_hooks.c
+	mlx_hooks.c\
+	model_values.c\
+	manage_model_position.c\
+	reset_components.c
 
 OBJS	:= ${SRCS:.c=.o}
 
