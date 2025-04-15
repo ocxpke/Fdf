@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:02:26 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/03/19 20:15:49 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:19:33 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ int	add_vector(t_vector **vectors, int x, int y, int z)
 	new_vector->x = x;
 	new_vector->y = y;
 	new_vector->z = z;
+	new_vector->x_p = x;
+	new_vector->y_p = y;
+	new_vector->z_p = z;
 	new_vector->next = NULL;
 	if (!(*vectors))
 	{

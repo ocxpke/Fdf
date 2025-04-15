@@ -18,7 +18,11 @@ SRCS	:= fdf.c\
 	mlx_hooks.c\
 	model_values.c\
 	manage_model_position.c\
-	reset_components.c
+	reset_components.c\
+	manage_rotation.c\
+	rotation_in_x.c\
+	rotation_in_y.c\
+	rotation_in_z.c
 
 OBJS	:= ${SRCS:.c=.o}
 

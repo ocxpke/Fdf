@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:52:33 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/14 19:38:30 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:16:21 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ int	main(int argc, char **argv)
 		return (-1);
 	map_info = init_map_info(argv[1]);
 	win_info = init_window_components();
+	init_model_values(win_info, map_info);
 	dis_points = init_points_matrix(map_info);
+	calculate_main_projection(win_info, map_info, dis_points);
 	display_main_projection(win_info, map_info, dis_points);
 	mlx_image_to_window(win_info->window, win_info->img, win_info->init_width
 		* 0.025, win_info->init_heigth * 0.005);

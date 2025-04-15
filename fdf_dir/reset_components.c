@@ -6,11 +6,25 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 19:00:00 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/14 19:40:20 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:19:19 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	reset_model_components(t_vector *vector)
+{
+	t_vector	*aux;
+
+	aux = vector;
+	while (aux)
+	{
+		aux->x_p = aux->x;
+		aux->y_p = aux->y;
+		aux->z_p = aux->z;
+		aux = aux->next;
+	}
+}
 
 void	reset_user_values(t_fdf_data *fdf_data)
 {
@@ -21,6 +35,10 @@ void	reset_user_values(t_fdf_data *fdf_data)
 	model_values->user_x_pos = 0;
 	model_values->user_y_pos = 0;
 	model_values->zoom = 1;
+	model_values->rotation_angle_x = 0;
+	model_values->rotation_angle_y = 0;
+	model_values->rotation_angle_z = 0;
+	reset_model_components(fdf_data->map_info->vector_list);
 	redraw_projection(fdf_data);
 }
 

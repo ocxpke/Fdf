@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 20:07:13 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/14 19:39:14 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:12:27 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,8 @@ void	init_model_values(t_window *win_info, t_map_info *map_info)
 	model_values->spacing = calculate_spacing(win_info, map_info);
 	model_values->user_x_pos = 0;
 	model_values->user_y_pos = 0;
+	model_values->rotation_angle_x = 0;
+	model_values->rotation_angle_y = 0;
+	model_values->rotation_angle_z = 0;
+	model_values->rotation_axis = 0;
 }

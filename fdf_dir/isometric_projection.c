@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 19:37:51 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/14 19:38:26 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:36:32 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	calculate_main_projection(t_window *win_info, t_map_info *map_info,
 	aux = map_info->vector_list;
 	while (aux)
 	{
-		p_matrix[aux->x][aux->y].x = (((aux->x * m_val->spacing) + (aux->y
+		p_matrix[aux->x][aux->y].x = (((aux->x_p * m_val->spacing) + (aux->y_p
 						* m_val->spacing)) * cos(0.523599)) * m_val->zoom;
-		p_matrix[aux->x][aux->y].y = (((aux->x * m_val->spacing) - (aux->y
-						* m_val->spacing)) * sin(0.523599) - (aux->z
+		p_matrix[aux->x][aux->y].y = (((aux->x_p * m_val->spacing) - (aux->y_p
+						* m_val->spacing)) * sin(0.523599) - (aux->z_p
 					* m_val->spacing)) * m_val->zoom;
 		p_matrix[aux->x][aux->y].z = aux->z;
 		set_model_values(m_val, p_matrix[aux->x][aux->y].x,
@@ -61,8 +61,6 @@ void	display_main_projection(t_window *win_info, t_map_info *map_info,
 	int	i;
 	int	j;
 
-	init_model_values(win_info, map_info);
-	calculate_main_projection(win_info, map_info, p_matrix);
 	i = 0;
 	while (i <= map_info->x_length)
 	{

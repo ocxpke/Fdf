@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:51:40 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/14 19:38:19 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:32:02 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define ZOOM_CHANGE 0.01
 # define ZOOM_MAX 7
 # define ZOOM_MIN 0.1
+# define PI_VALUE 3.141592
 
 typedef struct s_window
 {
@@ -54,6 +55,10 @@ typedef struct s_model_values
 	int				user_x_pos;
 	int				user_y_pos;
 	double			zoom;
+	double			rotation_angle_x;
+	double			rotation_angle_y;
+	double			rotation_angle_z;
+	int				rotation_axis;
 }					t_model_values;
 
 typedef struct s_coordenates
@@ -68,6 +73,9 @@ typedef struct s_vector
 	int				x;
 	int				y;
 	int				z;
+	double			x_p;
+	double			y_p;
+	double			z_p;
 	struct s_vector	*next;
 }					t_vector;
 
@@ -153,7 +161,34 @@ void				reset_model_values(t_model_values *model_values);
 void				set_x_axis_position(t_fdf_data *fdf_data, int mode);
 void				set_y_axis_position(t_fdf_data *fdf_data, int mode);
 
+void				reset_model_components(t_vector *vector);
 void				reset_user_values(t_fdf_data *fdf_data);
 void				reset_user_view(t_window *win_info);
+
+void				check_axis_reset_values(t_fdf_data *fdf_data,
+						t_model_values *model_values, int axis);
+void				calculate_display_rotation(t_fdf_data *fdf_data, int axis);
+double				deg_to_rad(double degrees);
+
+double				rotation_on_x_value_y(t_model_values *model_values, int y,
+						int z);
+double				rotation_on_x_value_z(t_model_values *model_values, int y,
+						int z);
+void				calculate_rotated_points_x(t_map_info *map_info);
+void				rotate_model_x(t_fdf_data *fdf_data, int axis, int mode);
+
+double				rotation_on_y_value_x(t_model_values *model_values, int x,
+						int z);
+double				rotation_on_y_value_z(t_model_values *model_values, int x,
+						int z);
+void				calculate_rotated_points_y(t_map_info *map_info);
+void				rotate_model_y(t_fdf_data *fdf_data, int axis, int mode);
+
+double				rotation_on_z_value_x(t_model_values *model_values, int x,
+						int y);
+double				rotation_on_z_value_y(t_model_values *model_values, int x,
+						int y);
+void				calculate_rotated_points_z(t_map_info *map_info);
+void				rotate_model_z(t_fdf_data *fdf_data, int axis, int mode);
 
 #endif
