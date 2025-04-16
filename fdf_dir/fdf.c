@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:52:33 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/15 18:16:21 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:08:50 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ int	main(int argc, char **argv)
 	fdf_data.win_info = win_info;
 	mlx_key_hook(win_info->window, &keyboard_hooks, &fdf_data);
 	mlx_scroll_hook(win_info->window, &zoom_hook, &fdf_data);
+	mlx_loop_hook(win_info->window, automatic_rotation, &fdf_data);
 	mlx_loop(win_info->window);
 }

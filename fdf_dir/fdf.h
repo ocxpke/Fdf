@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:51:40 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/15 19:32:02 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/16 19:42:30 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_model_values
 	double			rotation_angle_y;
 	double			rotation_angle_z;
 	int				rotation_axis;
+	bool			auto_rot;
 }					t_model_values;
 
 typedef struct s_coordenates
@@ -190,5 +191,7 @@ double				rotation_on_z_value_y(t_model_values *model_values, int x,
 						int y);
 void				calculate_rotated_points_z(t_map_info *map_info);
 void				rotate_model_z(t_fdf_data *fdf_data, int axis, int mode);
+
+void				automatic_rotation(void *param);
 
 #endif

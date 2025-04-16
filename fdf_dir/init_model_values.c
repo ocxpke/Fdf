@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 20:07:13 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/15 19:12:27 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/16 14:49:07 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ void	init_model_values(t_window *win_info, t_map_info *map_info)
 	model_values->rotation_angle_y = 0;
 	model_values->rotation_angle_z = 0;
 	model_values->rotation_axis = 0;
+	model_values->auto_rot = false;
 }
