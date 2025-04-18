@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 18:55:01 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/14 19:38:50 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/18 00:51:25 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	set_colors(t_model_values *model_values, t_bresenham *data)
 {
 	double	pensection;
 
-	if (model_values->max_z == model_values->min_z)
+	if (!model_values || model_values->max_z == model_values->min_z)
 	{
 		data->color_print = DEFAULT_COLOR;
 		return ;
@@ -55,4 +55,25 @@ int	point_in_field(int x, int y, mlx_image_t *img)
 				&& (x > 0))))
 		return (1);
 	return (0);
+}
+
+void	set_bresenham(t_bresenham *data, t_model_values *model_values,
+		t_coordinates v0, t_coordinates v1)
+{
+	if (!model_values)
+	{
+		data->x0 = v0.x;
+		data->x1 = v1.x;
+		data->y0 = v0.y;
+		data->y1 = v1.y;
+	}
+	else
+	{
+		data->x0 = v0.x + model_values->offset_x + model_values->center_x_axis;
+		data->x1 = v1.x + model_values->offset_x + model_values->center_x_axis;
+		data->y0 = v0.y + model_values->offset_y + model_values->center_y_axis;
+		data->y1 = v1.y + model_values->offset_y + model_values->center_y_axis;
+	}
+	data->z0 = v0.z;
+	data->z1 = v1.z;
 }

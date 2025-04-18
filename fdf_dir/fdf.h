@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:51:40 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/16 19:42:30 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/18 02:58:36 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct s_window
 {
 	mlx_t			*window;
 	mlx_image_t		*img;
+	mlx_image_t		*leyend_img;
+	mlx_texture_t	*leyend_texture;
 	int				init_width;
 	int				init_heigth;
 }					t_window;
@@ -60,6 +62,7 @@ typedef struct s_model_values
 	double			rotation_angle_z;
 	int				rotation_axis;
 	bool			auto_rot;
+	bool			first_angle;
 }					t_model_values;
 
 typedef struct s_coordenates
@@ -136,13 +139,16 @@ t_coordinates		**free_back_coord(t_coordinates **points_matrix);
 void				display_main_projection(t_window *win_info,
 						t_map_info *map_info, t_coordinates **p_matrix);
 
+void				set_bresenham(t_bresenham *data,
+						t_model_values *model_values, t_coordinates v0,
+						t_coordinates v1);
 void				set_colors(t_model_values *model_values, t_bresenham *data);
 
 int					calculate_spacing(t_window *win_info, t_map_info *map_info);
 
 int					point_in_field(int x, int y, mlx_image_t *img);
 
-void				init_model_values(t_window *win_info, t_map_info *map_info);
+void				init_model_values(t_map_info *map_info);
 
 void				change_zoom_value(t_fdf_data *fdf_data, int mode);
 
@@ -193,5 +199,7 @@ void				calculate_rotated_points_z(t_map_info *map_info);
 void				rotate_model_z(t_fdf_data *fdf_data, int axis, int mode);
 
 void				automatic_rotation(void *param);
+
+void				project_first_angle_view(t_fdf_data *fdf_data);
 
 #endif

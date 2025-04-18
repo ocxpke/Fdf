@@ -23,9 +23,10 @@ SRCS	:= fdf.c\
 	rotation_in_x.c\
 	rotation_in_y.c\
 	rotation_in_z.c\
-	automatic_rotation.c
+	automatic_rotation.c\
+	manage_first_angle_projection.c
 
-OBJS	:= ${SRCS:.c=.o}
+OBJS:= ${SRCS:.c=.o}
 
 LIBFT_DIR = -L./libft -llibft
 
@@ -54,6 +55,6 @@ fclean: clean
 re: clean all
 
 run: all
-	MESA_SHADER_CACHE_DIR=$HOME/.cache/mesa XDG_SESSION_TYPE=x11 DISPLAY=:0 valgrind --leak-check=full --log-file=out.txt ./fdf ../test_maps/42.fdf
+	XDG_SESSION_TYPE=x11 DISPLAY=:0 ./fdf ../test_maps/42.fdf
 
 .PHONY: all, clean, fclean, re, libmlx, libft

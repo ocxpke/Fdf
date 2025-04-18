@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 19:37:51 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/16 19:36:54 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/17 22:21:10 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	calculate_main_projection(t_window *win_info, t_map_info *map_info,
 
 	m_val = map_info->model_values;
 	aux = map_info->vector_list;
+	m_val->spacing = calculate_spacing(win_info, map_info);
 	while (aux)
 	{
 		p_matrix[aux->x][aux->y].x = (((aux->x_p * m_val->spacing) + (aux->y_p

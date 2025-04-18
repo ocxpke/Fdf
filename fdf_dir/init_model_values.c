@@ -6,13 +6,13 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 20:07:13 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/16 14:49:07 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/17 22:21:35 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	init_model_values(t_window *win_info, t_map_info *map_info)
+void	init_model_values(t_map_info *map_info)
 {
 	t_model_values	*model_values;
 
@@ -30,7 +30,7 @@ void	init_model_values(t_window *win_info, t_map_info *map_info)
 	model_values->center_x_axis = 0;
 	model_values->center_y_axis = 0;
 	model_values->zoom = 1;
-	model_values->spacing = calculate_spacing(win_info, map_info);
+	model_values->spacing = 0;
 	model_values->user_x_pos = 0;
 	model_values->user_y_pos = 0;
 	model_values->rotation_angle_x = 0;
@@ -38,4 +38,5 @@ void	init_model_values(t_window *win_info, t_map_info *map_info)
 	model_values->rotation_angle_z = 0;
 	model_values->rotation_axis = 0;
 	model_values->auto_rot = false;
+	model_values->first_angle = false;
 }

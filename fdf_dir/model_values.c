@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 13:45:34 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/15 18:39:20 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/18 00:38:51 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	reset_model_values(t_model_values *model_values)
 	model_values->max_y = 0;
 	model_values->min_x = 0;
 	model_values->min_y = 0;
+	model_values->offset_x = 0;
+	model_values->offset_y = 0;
 }
 
 void	set_model_values(t_model_values *model_values, int x, int y)
