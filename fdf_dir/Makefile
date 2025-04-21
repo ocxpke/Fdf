@@ -1,5 +1,5 @@
 NAME	:= fdf
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -DDEBUG=1-Ofast
 LIBMLX	:= ../MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
@@ -24,7 +24,8 @@ SRCS	:= fdf.c\
 	rotation_in_y.c\
 	rotation_in_z.c\
 	automatic_rotation.c\
-	manage_first_angle_projection.c
+	manage_first_angle_projection.c\
+	first_angle_views.c
 
 OBJS:= ${SRCS:.c=.o}
 
@@ -42,7 +43,7 @@ libft:
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
 clean:
 	@rm -rf $(OBJS)

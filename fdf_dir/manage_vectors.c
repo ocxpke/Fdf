@@ -6,40 +6,37 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:02:26 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/15 14:19:33 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/21 22:33:25 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	analyze_splitted(char **splitted, int cont, t_vector **vector_list)
+/**
+ * @brief	Analyses the splitted struct with all the vectors readed of a line,
+ * and adds node by node
+ *
+ * @param splitted	The splitted struct with every node
+ * @param cont The x component of the vector (file line)
+ * @param vector_list	Linked list with all the vectors
+ *
+ * @return	Void
+ */
+static void	analyze_splitted(char **splitted, int cont, t_vector **vector_list)
 {
 	int	word;
 
 	word = 0;
 	while (splitted[word])
 	{
-		add_vector(vector_list, cont, word, ft_atoi(splitted[word]));
+		if (add_vector(vector_list, cont, word, ft_atoi(splitted[word])) == -1)
+		{
+			//Check
+			free_vec_list(vector_list);
+			perror("Error with vector list component");
+			exit(EXIT_FAILURE);
+		}
 		word++;
-	}
-}
-
-void	init_vectors(int fd, t_vector **vector_list)
-{
-	int		x;
-	char	*line;
-	char	**splitted;
-
-	x = 0;
-	line = get_next_line(fd);
-	while (line)
-	{
-		splitted = ft_split(line, ' ');
-		analyze_splitted(splitted, x, vector_list);
-		free_back_splitted(splitted);
-		x++;
-		free(line);
-		line = get_next_line(fd);
 	}
 }
 
@@ -68,6 +65,26 @@ int	add_vector(t_vector **vectors, int x, int y, int z)
 		iter = iter->next;
 	iter->next = new_vector;
 	return (0);
+}
+
+void	init_vectors(int fd, t_vector **vector_list)
+{
+	int		x;
+	char	*line;
+	char	**splitted;
+
+	x = 0;
+	line = get_next_line(fd);
+	while (line)
+	{
+		splitted = ft_split(line, ' ');
+		analyze_splitted(splitted, x, vector_list);
+		free_back_splitted(splitted);
+		x++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
 }
 
 void	free_vec_list(t_vector **vectors)

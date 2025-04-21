@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:51:40 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/18 02:58:36 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/21 22:56:39 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,23 +118,132 @@ typedef struct s_fdf_data
 	t_window		*win_info;
 }					t_fdf_data;
 
+/**		________________________________
+ *		|
+ *		|	MANAGE_MAP_INFO.C FILE
+ *		|_______________________________
+ */
+/**
+ * @brief	Initialized an struct for allocating all information
+ * needed to manage the map (.fdf)
+ *
+ * @param file_in The path of the file to be readed
+ *
+ * @return	The initialized struct
+ */
+t_map_info			*init_map_info(char *file_in);
+/**
+ * @brief	Prints the map information, used for debugging.
+ *
+ * @param map_info	All the details of our map
+ *
+ * @return	Void
+ */
+void				print_map_info(t_map_info *map_info);
+
+/**		________________________________
+ *		|
+ *		|	MANAGE_VECTORS.C FILE
+ *		|_______________________________
+ */
+/**
+ * @brief	Initialises out linked list vector, reading each line and
+ * splitting it to get every vector
+ *
+ * @param fd	FD of out map
+ * @param vector_list	Linked list with all the vectors
+ *
+ * @return	Void
+ */
 void				init_vectors(int fd, t_vector **vector_list);
+/**
+ * @brief	Adds a vector at the end of the list, if vector_list == NULL
+ * changes the head pointer
+ *
+ * @param vector_list	Linked list with all the vectors
+ * @param x		X value of the vector
+ * @param y		Y value of the vector
+ * @param z		Z value of the vector
+ *
+ * @return	0 if everythin is OK, -1 if something went wrong
+ */
 int					add_vector(t_vector **vectors, int x, int y, int z);
+/**
+ * @brief	Liberates all the allocated memory of our vectors linked list
+ *
+ * @param vector_list	Linked list with all the vectors
+ *
+ * @return	Void
+ */
 void				free_vec_list(t_vector **vectors);
+/**
+ * @brief	Print's all the componentes of every node of our vectors list.
+ *
+ * @param vector_list	Linked list with all the vectors
+ *
+ * @return	Void
+ */
 void				print_vec_list(t_vector *list);
+
+/**		________________________________
+ *		|
+ *		|	MANAGE_VECTORS.C FILE
+ *		|_______________________________
+ */
+/**
+ * @brief	Initialised a struct for allocating all trhe information,
+ * needed to manage our window
+ *
+ * @param argv	File name passed through parameter
+ *
+ * @return	The initialised window struct
+ */
+t_window			*init_window_components(char *argv);
+
+/**		________________________________
+ *		|
+ *		|	INIT_MODEL_VALUES.C FILE
+ *		|_______________________________
+ */
+/**
+ * @brief	Allocates and initialises all components needed to dispaly our map
+ *
+ * @param map_info	The struct with all our map information
+ *
+ * @return	Void
+ */
+void				init_model_values(t_map_info *map_info);
+
+
+/**		________________________________
+ *		|
+ *		|	INIT_MODEL_VALUES.C FILE
+ *		|_______________________________
+ */
+/**
+ * @brief	Allocates meomry for our matrix of points, values are not setted.
+ *
+ * @param map_info	The struct with all our map information
+ *
+ * @return	The coordinates matrix struct or null
+ */
+t_coordinates		**init_points_matrix(t_map_info *map_info);
+/**
+ * @brief	Liberates all the allocated memory of the coordenates matrix
+ *
+ * @param points_matrix	Matrix with all corrdinates of the amp
+ *
+ * @return	Always null
+ */
+t_coordinates		**free_back_coord(t_coordinates **points_matrix);
+
 
 void				draw_line(mlx_image_t *img, t_model_values *model_values,
 						t_coordinates v0, t_coordinates v1);
 
-t_map_info			*init_map_info(char *file_in);
-void				print_map_info(t_map_info *map_info);
-
-t_window			*init_window_components(void);
 void				keyboard_hooks(mlx_key_data_t keydata, void *param);
 void				zoom_hook(double xdelta, double ydelta, void *param);
 
-t_coordinates		**init_points_matrix(t_map_info *map_info);
-t_coordinates		**free_back_coord(t_coordinates **points_matrix);
 
 void				display_main_projection(t_window *win_info,
 						t_map_info *map_info, t_coordinates **p_matrix);
@@ -147,8 +256,6 @@ void				set_colors(t_model_values *model_values, t_bresenham *data);
 int					calculate_spacing(t_window *win_info, t_map_info *map_info);
 
 int					point_in_field(int x, int y, mlx_image_t *img);
-
-void				init_model_values(t_map_info *map_info);
 
 void				change_zoom_value(t_fdf_data *fdf_data, int mode);
 
@@ -201,5 +308,16 @@ void				rotate_model_z(t_fdf_data *fdf_data, int axis, int mode);
 void				automatic_rotation(void *param);
 
 void				project_first_angle_view(t_fdf_data *fdf_data);
+
+double				spacing_first_angle(mlx_image_t *img, double sum);
+void				center_view_in_quadrant(mlx_image_t *img,
+						t_model_values *model_values, int quadrant);
+
+void				draw_plant_view(t_window *win_info, t_map_info *map_info,
+						t_coordinates **p_matrix);
+void				draw_profile_view(t_window *win_info, t_map_info *map_info,
+						t_coordinates **p_matrix);
+void				draw_raised_view(t_window *win_info, t_map_info *map_info,
+						t_coordinates **p_matrix);
 
 #endif

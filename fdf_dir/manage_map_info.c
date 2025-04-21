@@ -6,13 +6,20 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 17:00:17 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/03/30 20:30:30 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/21 22:13:09 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	set_x_and_y_length(t_map_info *map_info)
+/**
+ * @brief	Sets the length of X, and the length of Y.
+ *
+ * @param map_info	All the details of our map
+ *
+ * @return	Void
+ */
+static void	set_x_and_y_length(t_map_info *map_info)
 {
 	int			x_max;
 	int			y_max;
@@ -33,7 +40,14 @@ void	set_x_and_y_length(t_map_info *map_info)
 	map_info->y_length = y_max;
 }
 
-void	search_higher_lower_points(t_map_info *map_info)
+/**
+ * @brief	Sets for Z the highest value, and the lowest value
+ *
+ * @param map_info	All the details of our map
+ *
+ * @return	Void
+ */
+static void	search_higher_lower_points(t_map_info *map_info)
 {
 	int			highest_point;
 	int			lowest_point;
