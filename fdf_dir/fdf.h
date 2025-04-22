@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:51:40 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/21 22:56:39 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/23 00:35:14 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ typedef struct s_fdf_data
  *		|	MANAGE_MAP_INFO.C FILE
  *		|_______________________________
  */
+
 /**
  * @brief	Initialized an struct for allocating all information
  * needed to manage the map (.fdf)
@@ -146,6 +147,7 @@ void				print_map_info(t_map_info *map_info);
  *		|	MANAGE_VECTORS.C FILE
  *		|_______________________________
  */
+
 /**
  * @brief	Initialises out linked list vector, reading each line and
  * splitting it to get every vector
@@ -190,6 +192,7 @@ void				print_vec_list(t_vector *list);
  *		|	MANAGE_VECTORS.C FILE
  *		|_______________________________
  */
+
 /**
  * @brief	Initialised a struct for allocating all trhe information,
  * needed to manage our window
@@ -205,6 +208,7 @@ t_window			*init_window_components(char *argv);
  *		|	INIT_MODEL_VALUES.C FILE
  *		|_______________________________
  */
+
 /**
  * @brief	Allocates and initialises all components needed to dispaly our map
  *
@@ -214,12 +218,12 @@ t_window			*init_window_components(char *argv);
  */
 void				init_model_values(t_map_info *map_info);
 
-
 /**		________________________________
  *		|
  *		|	INIT_MODEL_VALUES.C FILE
  *		|_______________________________
  */
+
 /**
  * @brief	Allocates meomry for our matrix of points, values are not setted.
  *
@@ -237,13 +241,11 @@ t_coordinates		**init_points_matrix(t_map_info *map_info);
  */
 t_coordinates		**free_back_coord(t_coordinates **points_matrix);
 
-
 void				draw_line(mlx_image_t *img, t_model_values *model_values,
 						t_coordinates v0, t_coordinates v1);
 
 void				keyboard_hooks(mlx_key_data_t keydata, void *param);
 void				zoom_hook(double xdelta, double ydelta, void *param);
-
 
 void				display_main_projection(t_window *win_info,
 						t_map_info *map_info, t_coordinates **p_matrix);

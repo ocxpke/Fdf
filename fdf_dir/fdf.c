@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:52:33 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/21 23:01:23 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/23 00:35:12 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (-1);
-	map_info = init_map_info(argv[1]);
 	win_info = init_window_components(argv[1]);
+	map_info = init_map_info(argv[1]);
 	init_model_values(map_info);
 	dis_points = init_points_matrix(map_info);
 	calculate_main_projection(win_info, map_info, dis_points);
@@ -74,4 +74,5 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(win_info->window, automatic_rotation, &fdf_data);
 	mlx_loop(win_info->window);
 	terminate_fdf(&fdf_data);
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 18:41:42 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/21 19:29:34 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/23 00:21:28 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	keyboard_hooks(mlx_key_data_t keydata, void *param)
 	t_fdf_data	*fdf_data;
 
 	fdf_data = (t_fdf_data *)param;
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		return (mlx_close_window(fdf_data->win_info->window));
 	if (keydata.key == MLX_KEY_O && keydata.action == MLX_PRESS)
 	{
 		if (fdf_data->win_info->leyend_img->enabled)
