@@ -56,6 +56,6 @@ fclean: clean
 re: clean all
 
 run: all
-	XDG_SESSION_TYPE=x11 DISPLAY=:0 ./fdf ../test_maps/42.fdf
+	XDG_SESSION_TYPE=x11 DISPLAY=:0 ./fdf ./map_generator/ulfric.fdf
 
 .PHONY: all, clean, fclean, re, libmlx, libft
