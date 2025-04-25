@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 17:00:17 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/22 22:28:53 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/25 21:41:07 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,22 +77,18 @@ void	print_map_info(t_map_info *map_info)
 	print_vec_list(map_info->vector_list);
 }
 
-t_map_info	*init_map_info(char *file_in)
+void	init_map_info(char *file_in, t_map_info *map_info)
 {
-	t_map_info	*map_info;
-	int			fd;
+	int	fd;
 
 	fd = open(file_in, O_RDONLY);
 	if (fd == -1)
 		exit(EXIT_FAILURE);
-	map_info = (t_map_info *)ft_calloc(1, sizeof(t_map_info));
-	if (!map_info)
-		return (perror("Error with map_info"), NULL);
+	map_info->vector_list = NULL;
 	init_vectors(fd, &(map_info->vector_list));
 	if (!(map_info->vector_list))
-		return (free(map_info), perror("Fallo"), NULL);
+		return (free(map_info), perror("Fallo"));
 	set_x_and_y_length(map_info);
 	search_higher_lower_points(map_info);
 	close(fd);
-	return (map_info);
 }

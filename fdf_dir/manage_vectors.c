@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:02:26 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/21 22:33:25 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/25 21:14:37 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	analyze_splitted(char **splitted, int cont, t_vector **vector_list)
 	{
 		if (add_vector(vector_list, cont, word, ft_atoi(splitted[word])) == -1)
 		{
-			//Check
+			// Check
 			free_vec_list(vector_list);
 			perror("Error with vector list component");
 			exit(EXIT_FAILURE);

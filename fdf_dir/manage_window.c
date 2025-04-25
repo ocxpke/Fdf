@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:46:16 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/22 22:50:39 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/25 21:27:25 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,8 @@ static void	take_window_data(t_window *win_info)
 	printf("%d, %d\n", win_info->init_width, win_info->init_heigth);
 }
 
-t_window	*init_window_components(char *argv)
+void	init_window_components(char *argv, t_window *win_info)
 {
-	t_window	*win_info;
-
-	win_info = (t_window *)ft_calloc(1, sizeof(t_window));
-	if (!win_info)
-		return (perror("Error with init t_window"), NULL);
 	mlx_set_setting(MLX_MAXIMIZED, 1);
 	win_info->window = mlx_init(500, 500, "Fdf", true);
 	take_window_data(win_info);
@@ -67,5 +62,4 @@ t_window	*init_window_components(char *argv)
 	mlx_put_string(win_info->window, "Press 'o' to show/hide help | ESC to end",
 		win_info->init_width - 480, 40);
 	reset_user_view(win_info);
-	return (win_info);
 }

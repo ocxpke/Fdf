@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:51:40 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/23 00:35:14 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/25 20:41:47 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ typedef struct s_fdf_data
  *
  * @return	The initialized struct
  */
-t_map_info			*init_map_info(char *file_in);
+void				init_map_info(char *file_in, t_map_info *map_info);
 /**
  * @brief	Prints the map information, used for debugging.
  *
@@ -201,7 +201,7 @@ void				print_vec_list(t_vector *list);
  *
  * @return	The initialised window struct
  */
-t_window			*init_window_components(char *argv);
+void				init_window_components(char *argv, t_window *win_info);
 
 /**		________________________________
  *		|
