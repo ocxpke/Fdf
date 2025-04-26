@@ -68,7 +68,6 @@ int	main(int argc, char **argv)
 	init_window_components(argv[1], &win_info);
 	init_model_values(&map_info);
 	dis_points = init_points_matrix(&map_info);
-	printf("Hola\n");
 	calculate_main_projection(&win_info, &map_info, dis_points);
 	display_main_projection(&win_info, &map_info, dis_points);
 	set_fdf_data(&fdf_data, dis_points, &map_info, &win_info);

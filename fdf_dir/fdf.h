@@ -11,112 +11,105 @@
 /* ************************************************************************** */
 
 #ifndef FDF_H
-# define FDF_H
+#define FDF_H
 
-# include "../MLX42/include/MLX42/MLX42.h"
-# include "./libft/libft.h"
-# include <GLFW/glfw3.h>
-# include <fcntl.h>
-# include <limits.h>
-# include <math.h>
-# include <stdio.h>
-# include <string.h>
+#include "../MLX42/include/MLX42/MLX42.h"
+#include "./libft/libft.h"
+#include <GLFW/glfw3.h>
+#include <fcntl.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
 
-# define DEFAULT_COLOR 0x00FFFFFF
-# define MINIMUM_SPACING 3
-# define BACKGROUND_COLOR 0
-# define USER_SPEED 50
-# define ZOOM_CHANGE 0.01
-# define ZOOM_MAX 7
-# define ZOOM_MIN 0.1
-# define PI_VALUE 3.141592
+#define DEFAULT_COLOR 0x00FFFFFF
+#define MINIMUM_SPACING 3
+#define BACKGROUND_COLOR 0
+#define USER_SPEED 50
+#define ZOOM_CHANGE 0.01
+#define ZOOM_MAX 7
+#define ZOOM_MIN 0.1
+#define PI_VALUE 3.141592
 
-typedef struct s_window
-{
-	mlx_t			*window;
-	mlx_image_t		*img;
-	mlx_image_t		*leyend_img;
-	mlx_texture_t	*leyend_texture;
-	int				init_width;
-	int				init_heigth;
-}					t_window;
+typedef struct s_window {
+  mlx_t *window;
+  mlx_image_t *img;
+  mlx_image_t *leyend_img;
+  mlx_texture_t *leyend_texture;
+  int init_width;
+  int init_heigth;
+} t_window;
 
-typedef struct s_model_values
-{
-	int				max_x;
-	int				min_x;
-	int				max_y;
-	int				min_y;
-	int				offset_x;
-	int				offset_y;
-	int				center_x_axis;
-	int				center_y_axis;
-	int				min_z;
-	int				max_z;
-	int				spacing;
-	int				user_x_pos;
-	int				user_y_pos;
-	double			zoom;
-	double			rotation_angle_x;
-	double			rotation_angle_y;
-	double			rotation_angle_z;
-	int				rotation_axis;
-	bool			auto_rot;
-	bool			first_angle;
-}					t_model_values;
+typedef struct s_model_values {
+  int max_x;
+  int min_x;
+  int max_y;
+  int min_y;
+  int offset_x;
+  int offset_y;
+  int center_x_axis;
+  int center_y_axis;
+  int min_z;
+  int max_z;
+  int spacing;
+  int user_x_pos;
+  int user_y_pos;
+  double zoom;
+  double rotation_angle_x;
+  double rotation_angle_y;
+  double rotation_angle_z;
+  int rotation_axis;
+  bool auto_rot;
+  bool first_angle;
+} t_model_values;
 
-typedef struct s_coordenates
-{
-	int				x;
-	int				y;
-	int				z;
-}					t_coordinates;
+typedef struct s_coordenates {
+  int x;
+  int y;
+  int z;
+} t_coordinates;
 
-typedef struct s_vector
-{
-	int				x;
-	int				y;
-	int				z;
-	double			x_p;
-	double			y_p;
-	double			z_p;
-	struct s_vector	*next;
-}					t_vector;
+typedef struct s_vector {
+  int x;
+  int y;
+  int z;
+  double x_p;
+  double y_p;
+  double z_p;
+  struct s_vector *next;
+} t_vector;
 
-typedef struct s_map_info
-{
-	int				x_length;
-	int				y_length;
-	int				highest_point;
-	int				lowest_point;
-	t_vector		*vector_list;
-	t_model_values	*model_values;
-}					t_map_info;
+typedef struct s_map_info {
+  int x_length;
+  int y_length;
+  int highest_point;
+  int lowest_point;
+  t_vector *vector_list;
+  t_model_values *model_values;
+} t_map_info;
 
-typedef struct s_bresenham
-{
-	int				x0;
-	int				x1;
-	int				y0;
-	int				y1;
-	int				z0;
-	int				z1;
-	int				delta_x;
-	int				delta_y;
-	int				point;
-	int				decision_param;
-	int				direction;
-	int				oper1;
-	int				oper2;
-	uint32_t		color_print;
-}					t_bresenham;
+typedef struct s_bresenham {
+  int x0;
+  int x1;
+  int y0;
+  int y1;
+  int z0;
+  int z1;
+  int delta_x;
+  int delta_y;
+  int point;
+  int decision_param;
+  int direction;
+  int oper1;
+  int oper2;
+  uint32_t color_print;
+} t_bresenham;
 
-typedef struct s_fdf_data
-{
-	t_coordinates	**dis_points;
-	t_map_info		*map_info;
-	t_window		*win_info;
-}					t_fdf_data;
+typedef struct s_fdf_data {
+  t_coordinates **dis_points;
+  t_map_info *map_info;
+  t_window *win_info;
+} t_fdf_data;
 
 /**		________________________________
  *		|
@@ -132,7 +125,7 @@ typedef struct s_fdf_data
  *
  * @return	The initialized struct
  */
-void				init_map_info(char *file_in, t_map_info *map_info);
+void init_map_info(char *file_in, t_map_info *map_info);
 /**
  * @brief	Prints the map information, used for debugging.
  *
@@ -140,7 +133,7 @@ void				init_map_info(char *file_in, t_map_info *map_info);
  *
  * @return	Void
  */
-void				print_map_info(t_map_info *map_info);
+void print_map_info(t_map_info *map_info);
 
 /**		________________________________
  *		|
@@ -157,7 +150,7 @@ void				print_map_info(t_map_info *map_info);
  *
  * @return	Void
  */
-void				init_vectors(int fd, t_vector **vector_list);
+void init_vectors(int fd, t_vector **vector_list);
 /**
  * @brief	Adds a vector at the end of the list, if vector_list == NULL
  * changes the head pointer
@@ -169,7 +162,7 @@ void				init_vectors(int fd, t_vector **vector_list);
  *
  * @return	0 if everythin is OK, -1 if something went wrong
  */
-int					add_vector(t_vector **vectors, int x, int y, int z);
+int add_vector(t_vector **vectors, int x, int y, int z);
 /**
  * @brief	Liberates all the allocated memory of our vectors linked list
  *
@@ -177,7 +170,7 @@ int					add_vector(t_vector **vectors, int x, int y, int z);
  *
  * @return	Void
  */
-void				free_vec_list(t_vector **vectors);
+void free_vec_list(t_vector **vectors);
 /**
  * @brief	Print's all the componentes of every node of our vectors list.
  *
@@ -185,7 +178,7 @@ void				free_vec_list(t_vector **vectors);
  *
  * @return	Void
  */
-void				print_vec_list(t_vector *list);
+void print_vec_list(t_vector *list);
 
 /**		________________________________
  *		|
@@ -201,7 +194,7 @@ void				print_vec_list(t_vector *list);
  *
  * @return	The initialised window struct
  */
-void				init_window_components(char *argv, t_window *win_info);
+void init_window_components(char *argv, t_window *win_info);
 
 /**		________________________________
  *		|
@@ -210,13 +203,14 @@ void				init_window_components(char *argv, t_window *win_info);
  */
 
 /**
- * @brief	Allocates and initialises all components needed to dispaly our map
+ * @brief	Allocates and initialises all components needed to dispaly our
+ * map
  *
  * @param map_info	The struct with all our map information
  *
  * @return	Void
  */
-void				init_model_values(t_map_info *map_info);
+void init_model_values(t_map_info *map_info);
 
 /**		________________________________
  *		|
@@ -225,13 +219,14 @@ void				init_model_values(t_map_info *map_info);
  */
 
 /**
- * @brief	Allocates meomry for our matrix of points, values are not setted.
+ * @brief	Allocates meomry for our matrix of points, values are not
+ * setted.
  *
  * @param map_info	The struct with all our map information
  *
  * @return	The coordinates matrix struct or null
  */
-t_coordinates		**init_points_matrix(t_map_info *map_info);
+t_coordinates **init_points_matrix(t_map_info *map_info);
 /**
  * @brief	Liberates all the allocated memory of the coordenates matrix
  *
@@ -239,87 +234,161 @@ t_coordinates		**init_points_matrix(t_map_info *map_info);
  *
  * @return	Always null
  */
-t_coordinates		**free_back_coord(t_coordinates **points_matrix);
+t_coordinates **free_back_coord(t_coordinates **points_matrix);
 
-void				draw_line(mlx_image_t *img, t_model_values *model_values,
-						t_coordinates v0, t_coordinates v1);
+/**		________________________________
+ *		|
+ *		|	BRESENHAM_ALG.C FILE
+ *		|_______________________________
+ */
 
-void				keyboard_hooks(mlx_key_data_t keydata, void *param);
-void				zoom_hook(double xdelta, double ydelta, void *param);
+/**
+ * @brief	Draws a pixel line using mlx_put_pixel from v0 to v1.
+ *
+ * @param img	The image where we are going to draw pixels
+ * @param model_values	Model characteristics
+ * @param v0	The first point of the line
+ * @param v1	The last point of the line
+ *
+ * @return	Void
+ */
+void draw_line(mlx_image_t *img, t_model_values *model_values, t_coordinates v0,
+               t_coordinates v1);
 
-void				display_main_projection(t_window *win_info,
-						t_map_info *map_info, t_coordinates **p_matrix);
+/**		________________________________
+ *		|
+ *		|	AUX_BRESENHAM.C FILE
+ *		|_______________________________
+ */
 
-void				set_bresenham(t_bresenham *data,
-						t_model_values *model_values, t_coordinates v0,
-						t_coordinates v1);
-void				set_colors(t_model_values *model_values, t_bresenham *data);
+/**
+ * @brief	Here we initialize the content of the t_bresenham struct
+ *
+ * @param data	The struct we will initialize
+ * @param model_values	Model characteristics
+ * @param v0	The first point of the line
+ * @param v1	The last point of the line
+ *
+ * @return	Void
+ */
+void set_bresenham(t_bresenham *data, t_model_values *model_values,
+                   t_coordinates v0, t_coordinates v1);
+/**
+ * @brief	We set the color depending on the relative height of
+ * the point between v0 and v1
+ *
+ * @param model_values	Model characteristics
+ * @param data	The struct with all the data for bresenham_alg
+ *
+ * @return	Void
+ */
+void set_colors(t_model_values *model_values, t_bresenham *data);
+/**
+ * @brief	Checks if the point x and y value are in range with the image
+ *
+ * @param x	The x value
+ * @param y	The y value
+ * @param img	The image struct that contains the width and height
+ *
+ * @return	  0 if it's not in range, 1 if it's in range.
+ */
+int point_in_field(int x, int y, mlx_image_t *img);
 
-int					calculate_spacing(t_window *win_info, t_map_info *map_info);
+/**		________________________________
+ *		|
+ *		|	ISOMETRIC_PROJECTION.C FILE
+ *		|_______________________________
+ */
 
-int					point_in_field(int x, int y, mlx_image_t *img);
+/**
+ * @brief	Roam the p_matrix and set all the necesary values for p_matrix.x
+ * and p_matrix.y to be displayed
+ *
+ * @param win_info	Struct that holds all the window information
+ * @param map_info	Struct that holds all the map information needed
+ * @param p_matrix Matrix containing all the points to be displayed
+ *
+ * @return	Void
+ */
+void calculate_main_projection(t_window *win_info, t_map_info *map_info,
+	t_coordinates **p_matrix);
+/**
+ * @brief	Draw line by connecting each point with the next one for each
+ * row and column
+ *
+ * @param win_info	Struct that holds all the window information
+ * @param map_info	Struct that holds all the map information needed
+ * @param p_matrix Matrix containing all the points to be displayed
+ *
+ * @return	Void
+ */
+void display_main_projection(t_window *win_info, t_map_info *map_info,
+		t_coordinates **p_matrix);
+/**
+ * @brief	We calculate the minimun spacing that fits for the window
+ *
+ * @param win_info	Struct that holds all the window information
+ * @param map_info	Struct that holds all the map information needed
+ *
+ * @return	Minimum MIN_SPACING, else the spacing calculated
+ */
+int calculate_spacing(t_window *win_info, t_map_info *map_info);
 
-void				change_zoom_value(t_fdf_data *fdf_data, int mode);
+void keyboard_hooks(mlx_key_data_t keydata, void *param);
+void zoom_hook(double xdelta, double ydelta, void *param);
 
-void				set_offsets(mlx_image_t *img, t_model_values *model_values);
-void				redraw_projection(t_fdf_data *fdf_data);
 
-void				calculate_main_projection(t_window *win_info,
-						t_map_info *map_info, t_coordinates **p_matrix);
 
-void				set_model_values(t_model_values *model_values, int x,
-						int y);
-void				absolute_min_values(t_model_values *model_values);
-void				center_model(t_window *win_info,
-						t_model_values *model_values);
-void				reset_model_values(t_model_values *model_values);
+void change_zoom_value(t_fdf_data *fdf_data, int mode);
 
-void				set_x_axis_position(t_fdf_data *fdf_data, int mode);
-void				set_y_axis_position(t_fdf_data *fdf_data, int mode);
+void set_offsets(mlx_image_t *img, t_model_values *model_values);
+void redraw_projection(t_fdf_data *fdf_data);
 
-void				reset_model_components(t_vector *vector);
-void				reset_user_values(t_fdf_data *fdf_data);
-void				reset_user_view(t_window *win_info);
+void set_model_values(t_model_values *model_values, int x, int y);
+void absolute_min_values(t_model_values *model_values);
+void center_model(t_window *win_info, t_model_values *model_values);
+void reset_model_values(t_model_values *model_values);
 
-void				check_axis_reset_values(t_fdf_data *fdf_data,
-						t_model_values *model_values, int axis);
-void				calculate_display_rotation(t_fdf_data *fdf_data, int axis);
-double				deg_to_rad(double degrees);
+void set_x_axis_position(t_fdf_data *fdf_data, int mode);
+void set_y_axis_position(t_fdf_data *fdf_data, int mode);
 
-double				rotation_on_x_value_y(t_model_values *model_values, int y,
-						int z);
-double				rotation_on_x_value_z(t_model_values *model_values, int y,
-						int z);
-void				calculate_rotated_points_x(t_map_info *map_info);
-void				rotate_model_x(t_fdf_data *fdf_data, int axis, int mode);
+void reset_model_components(t_vector *vector);
+void reset_user_values(t_fdf_data *fdf_data);
+void reset_user_view(t_window *win_info);
 
-double				rotation_on_y_value_x(t_model_values *model_values, int x,
-						int z);
-double				rotation_on_y_value_z(t_model_values *model_values, int x,
-						int z);
-void				calculate_rotated_points_y(t_map_info *map_info);
-void				rotate_model_y(t_fdf_data *fdf_data, int axis, int mode);
+void check_axis_reset_values(t_fdf_data *fdf_data, t_model_values *model_values,
+                             int axis);
+void calculate_display_rotation(t_fdf_data *fdf_data, int axis);
+double deg_to_rad(double degrees);
 
-double				rotation_on_z_value_x(t_model_values *model_values, int x,
-						int y);
-double				rotation_on_z_value_y(t_model_values *model_values, int x,
-						int y);
-void				calculate_rotated_points_z(t_map_info *map_info);
-void				rotate_model_z(t_fdf_data *fdf_data, int axis, int mode);
+double rotation_on_x_value_y(t_model_values *model_values, int y, int z);
+double rotation_on_x_value_z(t_model_values *model_values, int y, int z);
+void calculate_rotated_points_x(t_map_info *map_info);
+void rotate_model_x(t_fdf_data *fdf_data, int axis, int mode);
 
-void				automatic_rotation(void *param);
+double rotation_on_y_value_x(t_model_values *model_values, int x, int z);
+double rotation_on_y_value_z(t_model_values *model_values, int x, int z);
+void calculate_rotated_points_y(t_map_info *map_info);
+void rotate_model_y(t_fdf_data *fdf_data, int axis, int mode);
 
-void				project_first_angle_view(t_fdf_data *fdf_data);
+double rotation_on_z_value_x(t_model_values *model_values, int x, int y);
+double rotation_on_z_value_y(t_model_values *model_values, int x, int y);
+void calculate_rotated_points_z(t_map_info *map_info);
+void rotate_model_z(t_fdf_data *fdf_data, int axis, int mode);
 
-double				spacing_first_angle(mlx_image_t *img, double sum);
-void				center_view_in_quadrant(mlx_image_t *img,
-						t_model_values *model_values, int quadrant);
+void automatic_rotation(void *param);
 
-void				draw_plant_view(t_window *win_info, t_map_info *map_info,
-						t_coordinates **p_matrix);
-void				draw_profile_view(t_window *win_info, t_map_info *map_info,
-						t_coordinates **p_matrix);
-void				draw_raised_view(t_window *win_info, t_map_info *map_info,
-						t_coordinates **p_matrix);
+void project_first_angle_view(t_fdf_data *fdf_data);
+
+double spacing_first_angle(mlx_image_t *img, double sum);
+void center_view_in_quadrant(mlx_image_t *img, t_model_values *model_values,
+                             int quadrant);
+
+void draw_plant_view(t_window *win_info, t_map_info *map_info,
+                     t_coordinates **p_matrix);
+void draw_profile_view(t_window *win_info, t_map_info *map_info,
+                       t_coordinates **p_matrix);
+void draw_raised_view(t_window *win_info, t_map_info *map_info,
+                      t_coordinates **p_matrix);
 
 #endif

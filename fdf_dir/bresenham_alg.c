@@ -13,6 +13,13 @@
 #include "fdf.h"
 #include <stdio.h>
 
+/**
+ * @brief	We swap the points of v0 and v1 of bresenham
+ *
+ * @param data	All data needed for the bresenham algorithm
+ *
+ * @return Void
+ */
 static void	swap_points(t_bresenham *data)
 {
 	int	tmp;
@@ -28,6 +35,13 @@ static void	swap_points(t_bresenham *data)
 	data->z1 = tmp;
 }
 
+/**
+ * @brief	Here we decide if the slope of bresenham needs to be changed
+ *
+ * @param data	All data needed for the bresenham algorithm
+ *
+ * @return Void
+ */
 static void	manage_decision_param(t_bresenham *data)
 {
 	if (data->decision_param >= 0)
@@ -38,6 +52,15 @@ static void	manage_decision_param(t_bresenham *data)
 	data->decision_param += data->oper2;
 }
 
+/**
+ * @brief	Draws a pixel line for the horizontal octancts.
+ *
+ * @param img	The image where we are going to draw pixels
+ * @param model_values	Model caracterictics
+ * @param data	All data needed for the bresenham algorithm
+ *
+ * @return Void
+ */
 static void	draw_horizontal_line(mlx_image_t *img, t_model_values *model_values,
 		t_bresenham data)
 {
@@ -68,6 +91,16 @@ static void	draw_horizontal_line(mlx_image_t *img, t_model_values *model_values,
 	}
 }
 
+
+/**
+ * @brief	Draws a pixel line for the vertical octancts.
+ *
+ * @param img	The image where we are going to draw pixels
+ * @param model_values	Model caracterictics
+ * @param data	All data needed for the bresenham algorithm
+ *
+ * @return Void
+ */
 static void	draw_vertical_line(mlx_image_t *img, t_model_values *model_values,
 		t_bresenham data)
 {

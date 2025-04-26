@@ -1,5 +1,5 @@
 NAME	:= fdf
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -DDEBUG=1 -Ofast -g
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
 LIBMLX	:= ../MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
@@ -56,6 +56,6 @@ fclean: clean
 re: clean all
 
 run: all
-	XDG_SESSION_TYPE=x11 DISPLAY=:0 ./fdf ./map_generator/ulfric.fdf
+	XDG_SESSION_TYPE=x11 DISPLAY=:0 ./fdf ../test_maps/julia.fdf
 
 .PHONY: all, clean, fclean, re, libmlx, libft
