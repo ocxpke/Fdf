@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 20:43:08 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/15 18:37:44 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/29 23:46:19 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ void	redraw_projection(t_fdf_data *fdf_data)
 	reset_model_values(fdf_data->map_info->model_values);
 	calculate_main_projection(fdf_data->win_info, fdf_data->map_info,
 		fdf_data->dis_points);
-	display_main_projection(fdf_data->win_info, fdf_data->map_info, fdf_data->dis_points);
+	display_main_projection(fdf_data->win_info, fdf_data->map_info,
+		fdf_data->dis_points);
 }

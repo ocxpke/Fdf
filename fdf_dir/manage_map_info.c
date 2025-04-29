@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 17:00:17 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/25 21:41:07 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/30 01:35:30 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,5 @@ void	init_map_info(char *file_in, t_map_info *map_info)
 	set_x_and_y_length(map_info);
 	search_higher_lower_points(map_info);
 	close(fd);
+	write(1, "Map readed and allocated\n", 25);
 }

@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 20:09:27 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/21 19:57:51 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/30 01:37:17 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ t_coordinates	**init_points_matrix(t_map_info *map_info)
 			return (perror("Error v2 matrix"), free_back_coord(points_matrix));
 		i++;
 	}
+	write(1, "Coordinates matrix allocated\n", 29);
 	return (points_matrix);
 }

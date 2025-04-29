@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:52:33 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/25 21:28:13 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/30 01:47:51 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * @brief	Sets the content of the fdf_data type, used for hooks.
  *
- * @param fdf_data	Variable to set all data of FDF
+ * @param fdf_data	Variable to set all data of FDF (WRAPPER)
  * @param dis_points	The points to be displayed on scren
  * @param map_info	All the details of our map
  * @param win_info	All the details needed for our window management

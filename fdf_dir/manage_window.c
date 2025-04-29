@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:46:16 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/25 21:27:25 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/30 01:49:15 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,17 @@ static void	display_help(t_window *win_info)
  *
  * @return	Void
  */
-static void	take_window_data(t_window *win_info)
+static inline void	take_window_data(t_window *win_info)
 {
 	GLFWmonitor	*monitor;
 
 	monitor = glfwGetPrimaryMonitor();
 	if (!monitor)
-		return (perror("Error monitor"), free(win_info), exit(EXIT_FAILURE));
+		return (perror("Error monitor"), exit(EXIT_FAILURE));
 	glfwGetMonitorWorkarea(monitor, NULL, NULL, &(win_info->init_width),
 		&(win_info->init_heigth));
-	printf("%d, %d\n", win_info->init_width, win_info->init_heigth);
+	ft_printf("Width: %d, Height: %d\n", win_info->init_width,
+		win_info->init_heigth);
 }
 
 void	init_window_components(char *argv, t_window *win_info)
@@ -62,4 +63,5 @@ void	init_window_components(char *argv, t_window *win_info)
 	mlx_put_string(win_info->window, "Press 'o' to show/hide help | ESC to end",
 		win_info->init_width - 480, 40);
 	reset_user_view(win_info);
+	write(1, "Window component initialised\n", 29);
 }

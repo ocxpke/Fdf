@@ -6,13 +6,14 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:31:01 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/15 19:29:46 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/30 00:49:57 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-double	rotation_on_x_value_y(t_model_values *model_values, int y, int z)
+inline double	rotation_on_x_value_y(t_model_values *model_values, int y,
+		int z)
 {
 	double	radians;
 
@@ -20,7 +21,8 @@ double	rotation_on_x_value_y(t_model_values *model_values, int y, int z)
 	return ((y * cos(radians)) - (z * sin(radians)));
 }
 
-double	rotation_on_x_value_z(t_model_values *model_values, int y, int z)
+inline double	rotation_on_x_value_z(t_model_values *model_values, int y,
+		int z)
 {
 	double	radians;
 
@@ -49,13 +51,13 @@ void	rotate_model_x(t_fdf_data *fdf_data, int axis, int mode)
 
 	model_values = fdf_data->map_info->model_values;
 	check_axis_reset_values(fdf_data, model_values, axis);
-	if (!mode && (model_values->rotation_angle_x <= 0))
-		model_values->rotation_angle_x = 360;
+	if (!mode && (model_values->rotation_angle_x <= MIN_ROTATION))
+		model_values->rotation_angle_x = MAX_ROTATION;
 	else if (!mode)
-		model_values->rotation_angle_x -= 2;
-	else if (mode && (model_values->rotation_angle_x >= 360))
-		model_values->rotation_angle_x = 0;
+		model_values->rotation_angle_x -= JUMP_ROTATION;
+	else if (mode && (model_values->rotation_angle_x >= MAX_ROTATION))
+		model_values->rotation_angle_x = MIN_ROTATION;
 	else if (mode)
-		model_values->rotation_angle_x += 2;
+		model_values->rotation_angle_x += JUMP_ROTATION;
 	calculate_display_rotation(fdf_data, axis);
 }

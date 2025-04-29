@@ -6,12 +6,11 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 13:45:34 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/18 00:38:51 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/29 23:47:23 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
 
 void	reset_model_values(t_model_values *model_values)
 {

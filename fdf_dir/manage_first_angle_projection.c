@@ -6,12 +6,20 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:53:24 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/21 19:39:29 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/30 00:39:57 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/**
+ * @brief	Just divides the screen into 4 parts drawing a cross
+ * on the middle of the screen
+ *
+ * @param fdf_data	All the data used in FDF (WRAPPER)
+ *
+ * @return	Void
+ */
 static void	draw_cross(t_fdf_data *fdf_data)
 {
 	mlx_image_t		*img;
@@ -36,7 +44,7 @@ static void	draw_cross(t_fdf_data *fdf_data)
 	draw_line(img, NULL, v0, v1);
 }
 
-double	spacing_first_angle(mlx_image_t *img, double sum)
+inline double	spacing_first_angle(mlx_image_t *img, double sum)
 {
 	if (img->width <= img->height)
 		return ((img->width / 2) / sum);

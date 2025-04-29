@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 18:41:42 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/23 00:21:28 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/29 23:46:07 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  *
  * @return	Void
  */
- static void	translate_hooks(mlx_key_data_t keydata, t_fdf_data *fdf_data)
+static void	translate_hooks(mlx_key_data_t keydata, t_fdf_data *fdf_data)
 {
 	if (keydata.key == MLX_KEY_LEFT && (keydata.action == MLX_REPEAT
 			|| keydata.action == MLX_PRESS))

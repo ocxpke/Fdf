@@ -6,18 +6,21 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 13:18:09 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/15 19:30:02 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/30 01:02:29 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-double	deg_to_rad(double degrees)
-{
-	return (degrees * (PI_VALUE / 180.0));
-}
-
-void	change_rotation_axis(t_fdf_data *fdf_data, int rot_axis)
+/**
+ * @brief	Resets the roation values if the rotation axis has been changed
+ *
+ * @param fdf_data	Contains all data of FDF (WRAPPER)
+ * @param rot_axis	0 => X axis, 1 => Y axis, 2 => Z axis
+ *
+ * @return	Void
+ */
+static void	change_rotation_axis(t_fdf_data *fdf_data, int rot_axis)
 {
 	t_model_values	*model_values;
 
@@ -31,8 +34,12 @@ void	change_rotation_axis(t_fdf_data *fdf_data, int rot_axis)
 		model_values->rotation_axis = rot_axis;
 	}
 }
+inline double	deg_to_rad(double degrees)
+{
+	return (degrees * (PI_VALUE / 180.0));
+}
 
-void	check_axis_reset_values(t_fdf_data *fdf_data,
+inline void	check_axis_reset_values(t_fdf_data *fdf_data,
 		t_model_values *model_values, int axis)
 {
 	change_rotation_axis(fdf_data, axis);

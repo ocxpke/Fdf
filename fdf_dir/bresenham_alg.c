@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:48:47 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/17 22:29:39 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/04/30 00:58:55 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	swap_points(t_bresenham *data)
  *
  * @return Void
  */
-static void	manage_decision_param(t_bresenham *data)
+static inline void	manage_decision_param(t_bresenham *data)
 {
 	if (data->decision_param >= 0)
 	{
@@ -90,7 +90,6 @@ static void	draw_horizontal_line(mlx_image_t *img, t_model_values *model_values,
 		}
 	}
 }
-
 
 /**
  * @brief	Draws a pixel line for the vertical octancts.
