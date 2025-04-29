@@ -56,6 +56,6 @@ fclean: clean
 re: clean all
 
 run: all
-	XDG_SESSION_TYPE=x11 DISPLAY=:0 ./fdf ../test_maps/julia.fdf
+	XDG_SESSION_TYPE=x11 DISPLAY=:0 ./fdf ../test_maps/pira.fdf
 
 .PHONY: all, clean, fclean, re, libmlx, libft

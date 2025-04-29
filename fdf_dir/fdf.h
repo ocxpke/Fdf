@@ -311,7 +311,7 @@ int point_in_field(int x, int y, mlx_image_t *img);
  * @return	Void
  */
 void calculate_main_projection(t_window *win_info, t_map_info *map_info,
-	t_coordinates **p_matrix);
+                               t_coordinates **p_matrix);
 /**
  * @brief	Draw line by connecting each point with the next one for each
  * row and column
@@ -323,7 +323,7 @@ void calculate_main_projection(t_window *win_info, t_map_info *map_info,
  * @return	Void
  */
 void display_main_projection(t_window *win_info, t_map_info *map_info,
-		t_coordinates **p_matrix);
+                             t_coordinates **p_matrix);
 /**
  * @brief	We calculate the minimun spacing that fits for the window
  *
@@ -334,20 +334,109 @@ void display_main_projection(t_window *win_info, t_map_info *map_info,
  */
 int calculate_spacing(t_window *win_info, t_map_info *map_info);
 
-void keyboard_hooks(mlx_key_data_t keydata, void *param);
-void zoom_hook(double xdelta, double ydelta, void *param);
+/**		________________________________
+ *		|
+ *		|	RECALCULATE_PROJECTION.C FILE
+ *		|_______________________________
+ */
 
-
-
-void change_zoom_value(t_fdf_data *fdf_data, int mode);
-
+/**
+ * @brief	Here we set the offsets of the model to be centered on screen
+ *
+ * @param img	The mlx image strcut containing the width and height.
+ * @param model_values  Contains all the data needed for representing the model
+ *
+ * @return	Void
+ */
 void set_offsets(mlx_image_t *img, t_model_values *model_values);
+/**
+ * @brief	We reset the model_values and recaculate everythin again (Use
+ * this for reset)
+ *
+ * @param fdf_data  All the data of the FDF needed (WRAPPER)
+ *
+ * @return	Void
+ */
 void redraw_projection(t_fdf_data *fdf_data);
 
-void set_model_values(t_model_values *model_values, int x, int y);
-void absolute_min_values(t_model_values *model_values);
-void center_model(t_window *win_info, t_model_values *model_values);
+/**		________________________________
+ *		|
+ *		| MODEL_VALUES.C FILE
+ *		|_______________________________
+ */
+
+/**
+ * @brief Resets to 0 max and min values, offsets (x & y), and the values used
+ * for centering the model on both axis.
+ *
+ * @param model_values  Struct that contains all the information related to the
+ * model
+ *
+ * @return	Void
+ */
 void reset_model_values(t_model_values *model_values);
+/**
+ * @brief Compares the new X and Y values to check if the are new minimum or
+ * maximum values.
+ *
+ * @param model_values  Struct that contains all the information related to the
+ * model.
+ * @param x The new X value.
+ * @param y The new Y value.
+ *
+ * @return	Void
+ */
+void set_model_values(t_model_values *model_values, int x, int y);
+/**
+ * @brief Sets the min value for x and y into positive values.
+ *
+ * @param model_values  Struct that contains all the information related to the
+ * model
+ *
+ * @return	Void
+ */
+void absolute_min_values(t_model_values *model_values);
+/**
+ * @brief Centers the model on case of being the model bigger than the window in which is displayed.
+ *
+ * @param win_info  Struct that contains all the information of the window.
+ * @param model_values  Struct that contains all the information related to the
+ * model.
+ *
+ * @return	Void
+ */
+void center_model(t_window *win_info, t_model_values *model_values);
+
+/**		________________________________
+ *		|
+ *		| MLX_HOOKS.C FILE
+ *		|_______________________________
+ */
+
+/**
+ * @brief	Defines all events that can happen related with keyboard
+ * inputs.
+ *
+ * @param keydata MLX structure that contains all the information needed for the
+ * keyboard event.
+ * @param param The fdf struct (WRAPPER) that will be cast later.
+ *
+ * @return	Void
+ */
+void keyboard_hooks(mlx_key_data_t keydata, void *param);
+/**
+ * @brief	Defines all events that can happen related with mouse scrolls
+ * inputs.
+ *
+ * @param xdelta Data from mouse horizontal scroll (left & right).
+ * @param ydelta Data from mouse vertical scroll (up & down).
+ * @param param The fdf struct (WRAPPER) that will be cast later.
+ *
+ * @return	Void
+ */
+void zoom_hook(double xdelta, double ydelta, void *param);
+
+void change_zoom_value(t_fdf_data *fdf_data, int mode);
 
 void set_x_axis_position(t_fdf_data *fdf_data, int mode);
 void set_y_axis_position(t_fdf_data *fdf_data, int mode);

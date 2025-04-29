@@ -12,6 +12,7 @@
 
 #include "fdf.h"
 
+
 void	reset_model_values(t_model_values *model_values)
 {
 	model_values->center_x_axis = 0;
@@ -36,7 +37,7 @@ void	set_model_values(t_model_values *model_values, int x, int y)
 		model_values->min_y = y;
 }
 
-void	absolute_min_values(t_model_values *model_values)
+inline void	absolute_min_values(t_model_values *model_values)
 {
 	model_values->min_x *= -1;
 	model_values->min_y *= -1;

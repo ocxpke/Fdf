@@ -54,8 +54,9 @@ void	calculate_main_projection(t_window *win_info, t_map_info *map_info,
 }
 
 /**
- * Recorro 2 veces la matriz de puntos OPTIMIZAR ESTO?
+ *  @todo Recorro 2 veces la matriz de puntos OPTIMIZAR ESTO?
  */
+
 void	display_main_projection(t_window *win_info, t_map_info *map_info,
 		t_coordinates **p_matrix)
 {

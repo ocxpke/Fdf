@@ -29,28 +29,8 @@ void	set_offsets(mlx_image_t *img, t_model_values *model_values)
 
 void	redraw_projection(t_fdf_data *fdf_data)
 {
-	int	i;
-	int	j;
-
-	i = 0;
 	reset_model_values(fdf_data->map_info->model_values);
 	calculate_main_projection(fdf_data->win_info, fdf_data->map_info,
 		fdf_data->dis_points);
-	while (i <= fdf_data->map_info->x_length)
-	{
-		j = 0;
-		while (j <= fdf_data->map_info->y_length)
-		{
-			if (i < fdf_data->map_info->x_length)
-				draw_line(fdf_data->win_info->img,
-					fdf_data->map_info->model_values,
-					fdf_data->dis_points[i][j], fdf_data->dis_points[i + 1][j]);
-			if (j < fdf_data->map_info->y_length)
-				draw_line(fdf_data->win_info->img,
-					fdf_data->map_info->model_values,
-					fdf_data->dis_points[i][j], fdf_data->dis_points[i][j + 1]);
-			j++;
-		}
-		i++;
-	}
+	display_main_projection(fdf_data->win_info, fdf_data->map_info, fdf_data->dis_points);
 }

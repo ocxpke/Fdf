@@ -12,7 +12,16 @@
 
 #include "fdf.h"
 
-void	translate_hooks(mlx_key_data_t keydata, t_fdf_data *fdf_data)
+/**
+ * @brief	Sets the keys that will be used to translate the model.
+ *
+ * @param keydata MLX structure that contains all the information needed for the
+ * keyboard event.
+ * @param param The fdf struct (WRAPPER) that will be cast later.
+ *
+ * @return	Void
+ */
+ static void	translate_hooks(mlx_key_data_t keydata, t_fdf_data *fdf_data)
 {
 	if (keydata.key == MLX_KEY_LEFT && (keydata.action == MLX_REPEAT
 			|| keydata.action == MLX_PRESS))
@@ -28,7 +37,16 @@ void	translate_hooks(mlx_key_data_t keydata, t_fdf_data *fdf_data)
 		set_y_axis_position(fdf_data, 1);
 }
 
-void	rotation_hooks(mlx_key_data_t keydata, t_fdf_data *fdf_data)
+/**
+ * @brief	Sets the keys that will be used to rotate the model.
+ *
+ * @param keydata MLX structure that contains all the information needed for the
+ * keyboard event.
+ * @param param The fdf struct (WRAPPER) that will be cast later.
+ *
+ * @return	Void
+ */
+static void	rotation_hooks(mlx_key_data_t keydata, t_fdf_data *fdf_data)
 {
 	if (keydata.key == MLX_KEY_Q && (keydata.action == MLX_REPEAT
 			|| keydata.action == MLX_PRESS))

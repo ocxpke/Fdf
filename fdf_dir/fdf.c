@@ -65,9 +65,9 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (-1);
 	init_map_info(argv[1], &map_info);
-	init_window_components(argv[1], &win_info);
-	init_model_values(&map_info);
 	dis_points = init_points_matrix(&map_info);
+	init_model_values(&map_info);
+	init_window_components(argv[1], &win_info);
 	calculate_main_projection(&win_info, &map_info, dis_points);
 	display_main_projection(&win_info, &map_info, dis_points);
 	set_fdf_data(&fdf_data, dis_points, &map_info, &win_info);
