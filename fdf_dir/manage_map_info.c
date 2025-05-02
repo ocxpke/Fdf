@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 17:00:17 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/30 01:35:30 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/05/02 17:40:33 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
  *
  * @return	Void
  */
+/*
 static void	set_x_and_y_length(t_map_info *map_info)
 {
 	int			x_max;
@@ -39,7 +40,7 @@ static void	set_x_and_y_length(t_map_info *map_info)
 	map_info->x_length = x_max;
 	map_info->y_length = y_max;
 }
-
+*/
 /**
  * @brief	Sets for Z the highest value, and the lowest value
  *
@@ -47,6 +48,7 @@ static void	set_x_and_y_length(t_map_info *map_info)
  *
  * @return	Void
  */
+/*
 static void	search_higher_lower_points(t_map_info *map_info)
 {
 	int			highest_point;
@@ -67,29 +69,42 @@ static void	search_higher_lower_points(t_map_info *map_info)
 	map_info->highest_point = highest_point;
 	map_info->lowest_point = lowest_point;
 }
+*/
 
-void	print_map_info(t_map_info *map_info)
+static int	splitted_len(char *line)
 {
-	ft_printf("X length is: %d, and Y length is: %d\n", map_info->x_length,
-		map_info->y_length);
-	ft_printf("Highest point is: %d, and lowest point is: %d\n",
-		map_info->highest_point, map_info->lowest_point);
-	print_vec_list(map_info->vector_list);
+	char	**splitted;
+	int		i;
+
+	i = 0;
+	splitted = ft_split(line, ' ');
+	while (splitted[i] != NULL)
+		i++;
+	free_back_splitted(splitted);
+	return (i);
 }
 
 void	init_map_info(char *file_in, t_map_info *map_info)
 {
-	int	fd;
+	int		fd;
+	int		cont;
+	char	*line;
 
+	cont = 0;
 	fd = open(file_in, O_RDONLY);
 	if (fd == -1)
 		exit(EXIT_FAILURE);
-	map_info->vector_list = NULL;
-	init_vectors(fd, &(map_info->vector_list));
-	if (!(map_info->vector_list))
-		return (free(map_info), perror("Fallo"));
-	set_x_and_y_length(map_info);
-	search_higher_lower_points(map_info);
+	line = get_next_line(fd);
+	map_info->y_length = splitted_len(line);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+		cont++;
+	}
+	map_info->x_length = cont;
+	map_info->highest_point = 0;
+	map_info->lowest_point = 0;
+	ft_printf("Map length %d, %d\n", map_info->x_length, map_info->y_length);
 	close(fd);
-	write(1, "Map readed and allocated\n", 25);
 }

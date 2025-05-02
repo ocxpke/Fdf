@@ -6,23 +6,32 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 19:00:00 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/29 23:57:30 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:10:39 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	reset_model_components(t_vector *vector)
+void	reset_model_components(t_coordinates **p_points, t_map_info *map_info)
 {
-	t_vector	*aux;
+	int	i;
+	int	j;
 
-	aux = vector;
-	while (aux)
+	i = 0;
+	while (i < map_info->x_length)
 	{
-		aux->x_p = aux->x;
-		aux->y_p = aux->y;
-		aux->z_p = aux->z;
-		aux = aux->next;
+		j = 0;
+		while (j < map_info->y_length)
+		{
+			p_points[i][j].x = p_points[i][j].x_o;
+			p_points[i][j].y = p_points[i][j].y_o;
+			p_points[i][j].z = p_points[i][j].z_o;
+			p_points[i][j].x_p = p_points[i][j].x_o;
+			p_points[i][j].y_p = p_points[i][j].y_o;
+			p_points[i][j].z_p = p_points[i][j].z_o;
+			j++;
+		}
+		i++;
 	}
 }
 
@@ -39,7 +48,7 @@ void	reset_user_values(t_fdf_data *fdf_data)
 	model_values->rotation_angle_y = 0;
 	model_values->rotation_angle_z = 0;
 	reset_user_view(fdf_data->win_info);
-	reset_model_components(fdf_data->map_info->vector_list);
+	reset_model_components(fdf_data->dis_points, fdf_data->map_info);
 	redraw_projection(fdf_data);
 }
 

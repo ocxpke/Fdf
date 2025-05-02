@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:51:40 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/30 01:47:39 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:13:15 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,16 @@ typedef struct s_model_values
 
 typedef struct s_coordenates
 {
-	int				x;
-	int				y;
-	int				z;
-}					t_coordinates;
-
-typedef struct s_vector
-{
-	int				x;
-	int				y;
-	int				z;
+	double			x;
+	double			y;
+	double			z;
+	int				x_o;
+	int				y_o;
+	int				z_o;
 	double			x_p;
 	double			y_p;
 	double			z_p;
-	struct s_vector	*next;
-}					t_vector;
+}					t_coordinates;
 
 typedef struct s_map_info
 {
@@ -92,7 +87,6 @@ typedef struct s_map_info
 	int				y_length;
 	int				highest_point;
 	int				lowest_point;
-	t_vector		*vector_list;
 	t_model_values	*model_values;
 }					t_map_info;
 
@@ -152,51 +146,6 @@ void				print_map_info(t_map_info *map_info);
  */
 
 /**
- * @brief	Initialises out linked list vector, reading each line and
- * splitting it to get every vector
- *
- * @param fd	FD of out map
- * @param vector_list	Linked list with all the vectors
- *
- * @return	Void
- */
-void				init_vectors(int fd, t_vector **vector_list);
-/**
- * @brief	Adds a vector at the end of the list, if vector_list == NULL
- * changes the head pointer
- *
- * @param vector_list	Linked list with all the vectors
- * @param x		X value of the vector
- * @param y		Y value of the vector
- * @param z		Z value of the vector
- *
- * @return	0 if everythin is OK, -1 if something went wrong
- */
-int					add_vector(t_vector **vectors, int x, int y, int z);
-/**
- * @brief	Liberates all the allocated memory of our vectors linked list
- *
- * @param vector_list	Linked list with all the vectors
- *
- * @return	Void
- */
-void				free_vec_list(t_vector **vectors);
-/**
- * @brief	Print's all the componentes of every node of our vectors list.
- *
- * @param vector_list	Linked list with all the vectors
- *
- * @return	Void
- */
-void				print_vec_list(t_vector *list);
-
-/**		________________________________
- *		|
- *		|	MANAGE_VECTORS.C FILE
- *		|_______________________________
- */
-
-/**
  * @brief	Initialised a struct for allocating all trhe information,
  * needed to manage our window
  *
@@ -236,7 +185,7 @@ void				init_model_values(t_map_info *map_info);
  *
  * @return	The coordinates matrix struct or null
  */
-t_coordinates		**init_points_matrix(t_map_info *map_info);
+t_coordinates		**init_points_matrix(char *file_in, t_map_info *map_info);
 /**
  * @brief	Liberates all the allocated memory of the coordenates matrix
  *
@@ -344,6 +293,9 @@ void				display_main_projection(t_window *win_info,
  * @return	Minimum MIN_SPACING, else the spacing calculated
  */
 int					calculate_spacing(t_window *win_info, t_map_info *map_info);
+
+void				calculations(t_map_info *map_info, t_coordinates **p_matrix,
+						int i, int j);
 
 /**		________________________________
  *		|
@@ -463,7 +415,8 @@ void				zoom_hook(double xdelta, double ydelta, void *param);
  *
  * @return	Void
  */
-void				reset_model_components(t_vector *vector);
+void				reset_model_components(t_coordinates **p_points,
+						t_map_info *map_info);
 /**
  * @brief	Sets all the fdf data to the first frame of FDF,
  * the first projection. Then cleans window and draws the first projection.
@@ -601,7 +554,8 @@ double				rotation_on_x_value_z(t_model_values *model_values, int y,
  *
  * @return	Void
  */
-void				calculate_rotated_points_x(t_map_info *map_info);
+void				calculate_rotated_points_x(t_window *win_info,
+						t_map_info *map_info, t_coordinates **p_matrix);
 /**
  * @brief	Checks if the axis of rotation has changes and rotates on
  * the X axis depending on the new value.
@@ -652,7 +606,8 @@ double				rotation_on_y_value_z(t_model_values *model_values, int x,
  *
  * @return	Void
  */
-void				calculate_rotated_points_y(t_map_info *map_info);
+void				calculate_rotated_points_y(t_window *win_info,
+						t_map_info *map_info, t_coordinates **p_matrix);
 /**
  * @brief	Checks if the axis of rotation has changes and rotates on
  * the Y axis depending on the new value.
@@ -703,7 +658,8 @@ double				rotation_on_z_value_y(t_model_values *model_values, int x,
  *
  * @return	Void
  */
-void				calculate_rotated_points_z(t_map_info *map_info);
+void				calculate_rotated_points_z(t_window *win_info,
+						t_map_info *map_info, t_coordinates **p_matrix);
 /**
  * @brief	Checks if the axis of rotation has changes and rotates on
  * the Z axis depending on the new value.

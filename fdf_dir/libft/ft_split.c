@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 18:26:47 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/01/31 12:49:37 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/05/01 21:01:43 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static size_t	count_words(char const *s, char c)
 		cont = 0;
 	while (*s)
 	{
-		if (*s == c && s[1] != c && s[1])
+		if ((*s == c) && (s[1] != c) && s[1])
 			cont++;
 		s++;
 	}

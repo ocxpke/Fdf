@@ -7,7 +7,6 @@ LIBS	:= ./libft/libft.a $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 SRCS	:= fdf.c\
 	bresenham_alg.c\
 	manage_window.c\
-	manage_vectors.c\
 	manage_map_info.c\
 	manage_display_points.c\
 	isometric_projection.c\

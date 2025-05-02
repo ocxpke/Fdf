@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:37:44 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/21 19:40:31 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:39:50 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,28 @@
 void	draw_raised_view(t_window *win_info, t_map_info *map_info,
 		t_coordinates **p_matrix)
 {
-	t_vector		*aux;
 	t_model_values	*m_val;
 	double			spacing;
+	int				i;
+	int				j;
 
 	m_val = map_info->model_values;
-	aux = map_info->vector_list;
 	spacing = spacing_first_angle(win_info->img, map_info->x_length
 			+ (map_info->highest_point + (map_info->lowest_point * -1)));
 	reset_model_values(m_val);
-	while (aux)
+	i = 0;
+	while (i < map_info->x_length)
 	{
-		p_matrix[aux->x][aux->y].x = aux->x * spacing;
-		p_matrix[aux->x][aux->y].y = (aux->z * -1) * spacing;
-		p_matrix[aux->x][aux->y].z = aux->z;
-		set_model_values(m_val, p_matrix[aux->x][aux->y].x,
-			p_matrix[aux->x][aux->y].y);
-		aux = aux->next;
+		j = 0;
+		while (j < map_info->y_length)
+		{
+			p_matrix[i][j].x_p = p_matrix[i][j].x_o * spacing;
+			p_matrix[i][j].y_p = (p_matrix[i][j].z_o * -1) * spacing;
+			p_matrix[i][j].z_p = p_matrix[i][j].z_o;
+			set_model_values(m_val, p_matrix[i][j].x_p, p_matrix[i][j].y_p);
+			j++;
+		}
+		i++;
 	}
 	absolute_min_values(m_val);
 	center_view_in_quadrant(win_info->img, m_val, 1);
@@ -43,23 +48,28 @@ void	draw_raised_view(t_window *win_info, t_map_info *map_info,
 void	draw_profile_view(t_window *win_info, t_map_info *map_info,
 		t_coordinates **p_matrix)
 {
-	t_vector		*aux;
 	t_model_values	*m_val;
 	double			spacing;
+	int				i;
+	int				j;
 
 	m_val = map_info->model_values;
-	aux = map_info->vector_list;
 	spacing = spacing_first_angle(win_info->img, map_info->y_length
 			+ (map_info->highest_point + (map_info->lowest_point * -1)));
 	reset_model_values(m_val);
-	while (aux)
+	i = 0;
+	while (i < map_info->x_length)
 	{
-		p_matrix[aux->x][aux->y].x = aux->y * spacing;
-		p_matrix[aux->x][aux->y].y = (aux->z * -1) * spacing;
-		p_matrix[aux->x][aux->y].z = aux->z;
-		set_model_values(m_val, p_matrix[aux->x][aux->y].x,
-			p_matrix[aux->x][aux->y].y);
-		aux = aux->next;
+		j = 0;
+		while (j < map_info->y_length)
+		{
+			p_matrix[i][j].x_p = p_matrix[i][j].y_o * spacing;
+			p_matrix[i][j].y_p = (p_matrix[i][j].z_o * -1) * spacing;
+			p_matrix[i][j].z_p = p_matrix[i][j].x_o;
+			set_model_values(m_val, p_matrix[i][j].x_p, p_matrix[i][j].y_p);
+			j++;
+		}
+		i++;
 	}
 	absolute_min_values(m_val);
 	center_view_in_quadrant(win_info->img, m_val, 2);
@@ -71,23 +81,28 @@ void	draw_profile_view(t_window *win_info, t_map_info *map_info,
 void	draw_plant_view(t_window *win_info, t_map_info *map_info,
 		t_coordinates **p_matrix)
 {
-	t_vector		*aux;
 	t_model_values	*m_val;
 	double			spacing;
+	int				i;
+	int				j;
 
 	m_val = map_info->model_values;
-	aux = map_info->vector_list;
 	spacing = spacing_first_angle(win_info->img, map_info->y_length
 			+ map_info->x_length);
 	reset_model_values(m_val);
-	while (aux)
+	i = 0;
+	while (i < map_info->x_length)
 	{
-		p_matrix[aux->x][aux->y].x = aux->y * spacing;
-		p_matrix[aux->x][aux->y].y = aux->x * spacing;
-		p_matrix[aux->x][aux->y].z = aux->z;
-		set_model_values(m_val, p_matrix[aux->x][aux->y].x,
-			p_matrix[aux->x][aux->y].y);
-		aux = aux->next;
+		j = 0;
+		while (j < map_info->y_length)
+		{
+			p_matrix[i][j].x_p = p_matrix[i][j].y_o * spacing;
+			p_matrix[i][j].y_p = p_matrix[i][j].x_o * spacing;
+			p_matrix[i][j].z_p = p_matrix[i][j].z_o;
+			set_model_values(m_val, p_matrix[i][j].x_p, p_matrix[i][j].y_p);
+			j++;
+		}
+		i++;
 	}
 	absolute_min_values(m_val);
 	center_view_in_quadrant(win_info->img, m_val, 3);

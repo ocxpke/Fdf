@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 13:18:09 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/30 01:02:29 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/05/02 19:22:31 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	change_rotation_axis(t_fdf_data *fdf_data, int rot_axis)
 		model_values->rotation_angle_x = 0;
 		model_values->rotation_angle_y = 0;
 		model_values->rotation_angle_z = 0;
-		reset_model_components(fdf_data->map_info->vector_list);
+		reset_model_components(fdf_data->dis_points, fdf_data->map_info);
 		model_values->rotation_axis = rot_axis;
 	}
 }
@@ -50,13 +50,14 @@ inline void	check_axis_reset_values(t_fdf_data *fdf_data,
 void	calculate_display_rotation(t_fdf_data *fdf_data, int axis)
 {
 	if (axis == 0)
-		calculate_rotated_points_x(fdf_data->map_info);
+		calculate_rotated_points_x(fdf_data->win_info, fdf_data->map_info,
+			fdf_data->dis_points);
 	else if (axis == 1)
-		calculate_rotated_points_y(fdf_data->map_info);
+		calculate_rotated_points_y(fdf_data->win_info, fdf_data->map_info,
+			fdf_data->dis_points);
 	else if (axis == 2)
-		calculate_rotated_points_z(fdf_data->map_info);
-	calculate_main_projection(fdf_data->win_info, fdf_data->map_info,
-		fdf_data->dis_points);
+		calculate_rotated_points_z(fdf_data->win_info, fdf_data->map_info,
+			fdf_data->dis_points);
 	display_main_projection(fdf_data->win_info, fdf_data->map_info,
 		fdf_data->dis_points);
 }

@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:52:33 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/30 01:47:51 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:53:33 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static void	terminate_fdf(t_fdf_data *fdf_data)
 	win_info = fdf_data->win_info;
 	free_back_coord(fdf_data->dis_points);
 	free(fdf_data->map_info->model_values);
-	free_vec_list(&fdf_data->map_info->vector_list);
 	mlx_delete_image(win_info->window, win_info->img);
 	mlx_delete_image(win_info->window, win_info->leyend_img);
 	mlx_delete_texture(win_info->leyend_texture);
@@ -65,7 +64,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (-1);
 	init_map_info(argv[1], &map_info);
-	dis_points = init_points_matrix(&map_info);
+	dis_points = init_points_matrix(argv[1], &map_info);
 	init_model_values(&map_info);
 	init_window_components(argv[1], &win_info);
 	calculate_main_projection(&win_info, &map_info, dis_points);

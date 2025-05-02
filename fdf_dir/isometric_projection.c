@@ -6,13 +6,13 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 19:37:51 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/17 22:21:10 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/05/02 17:41:35 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	calculate_spacing(t_window *win_info, t_map_info *map_info)
+inline int	calculate_spacing(t_window *win_info, t_map_info *map_info)
 {
 	int	sum;
 	int	spacing;
@@ -27,26 +27,40 @@ int	calculate_spacing(t_window *win_info, t_map_info *map_info)
 	return (spacing);
 }
 
-void	calculate_main_projection(t_window *win_info, t_map_info *map_info,
-		t_coordinates **p_matrix)
+inline void	calculations(t_map_info *map_info, t_coordinates **p_matrix, int i,
+		int j)
 {
-	t_vector		*aux;
 	t_model_values	*m_val;
 
 	m_val = map_info->model_values;
-	aux = map_info->vector_list;
+	p_matrix[i][j].x_p = (((p_matrix[i][j].x * m_val->spacing)
+				+ (p_matrix[i][j].y * m_val->spacing)) * cos(0.523599))
+		* m_val->zoom;
+	p_matrix[i][j].y_p = (((p_matrix[i][j].x * m_val->spacing)
+				- (p_matrix[i][j].y * m_val->spacing)) * sin(0.523599)
+			- (p_matrix[i][j].z * m_val->spacing)) * m_val->zoom;
+	set_model_values(m_val, p_matrix[i][j].x_p, p_matrix[i][j].y_p);
+}
+
+void	calculate_main_projection(t_window *win_info, t_map_info *map_info,
+		t_coordinates **p_matrix)
+{
+	int				i;
+	int				j;
+	t_model_values	*m_val;
+
+	i = 0;
+	m_val = map_info->model_values;
 	m_val->spacing = calculate_spacing(win_info, map_info);
-	while (aux)
+	while (i < map_info->x_length)
 	{
-		p_matrix[aux->x][aux->y].x = (((aux->x_p * m_val->spacing) + (aux->y_p
-						* m_val->spacing)) * cos(0.523599)) * m_val->zoom;
-		p_matrix[aux->x][aux->y].y = (((aux->x_p * m_val->spacing) - (aux->y_p
-						* m_val->spacing)) * sin(0.523599) - (aux->z_p
-					* m_val->spacing)) * m_val->zoom;
-		p_matrix[aux->x][aux->y].z = aux->z;
-		set_model_values(m_val, p_matrix[aux->x][aux->y].x,
-			p_matrix[aux->x][aux->y].y);
-		aux = aux->next;
+		j = 0;
+		while (j < map_info->y_length)
+		{
+			calculations(map_info, p_matrix, i, j);
+			j++;
+		}
+		i++;
 	}
 	absolute_min_values(m_val);
 	center_model(win_info, m_val);
@@ -54,7 +68,7 @@ void	calculate_main_projection(t_window *win_info, t_map_info *map_info,
 }
 
 /**
- *  @todo Recorro 2 veces la matriz de puntos OPTIMIZAR ESTO?
+ * @todo Recorro 2 veces la matriz de puntos OPTIMIZAR ESTO?
  */
 
 void	display_main_projection(t_window *win_info, t_map_info *map_info,
@@ -64,15 +78,15 @@ void	display_main_projection(t_window *win_info, t_map_info *map_info,
 	int	j;
 
 	i = 0;
-	while (i <= map_info->x_length)
+	while (i < map_info->x_length)
 	{
 		j = 0;
-		while (j <= map_info->y_length)
+		while (j < map_info->y_length)
 		{
-			if (i < map_info->x_length)
+			if (i < (map_info->x_length - 1))
 				draw_line(win_info->img, map_info->model_values, p_matrix[i][j],
 					p_matrix[i + 1][j]);
-			if (j < map_info->y_length)
+			if (j < (map_info->y_length - 1))
 				draw_line(win_info->img, map_info->model_values, p_matrix[i][j],
 					p_matrix[i][j + 1]);
 			j++;

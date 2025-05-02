@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 20:07:13 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/30 01:38:20 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:52:34 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_model_values(t_map_info *map_info)
 	model_values->min_x = 0;
 	model_values->min_y = 0;
 	model_values->min_z = map_info->lowest_point;
+	printf("LOWWWW: %d\n", model_values->min_z);
 	model_values->center_x_axis = 0;
 	model_values->center_y_axis = 0;
 	model_values->zoom = 1;

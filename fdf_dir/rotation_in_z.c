@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:53:17 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/30 00:48:55 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:29:59 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,33 @@ inline double	rotation_on_z_value_y(t_model_values *model_values, int x,
 	return ((x * sin(radians)) + (y * cos(radians)));
 }
 
-void	calculate_rotated_points_z(t_map_info *map_info)
+void	calculate_rotated_points_z(t_window *win_info, t_map_info *map_info,
+		t_coordinates **p_matrix)
 {
-	t_vector		*aux;
 	t_model_values	*m_val;
+	int				i;
+	int				j;
 
 	m_val = map_info->model_values;
-	aux = map_info->vector_list;
-	while (aux)
+	m_val->spacing = calculate_spacing(win_info, map_info);
+	i = 0;
+	while (i < map_info->x_length)
 	{
-		aux->x_p = rotation_on_z_value_x(m_val, aux->x, aux->y);
-		aux->y_p = rotation_on_z_value_y(m_val, aux->x, aux->y);
-		aux = aux->next;
+		j = 0;
+		while (j < map_info->y_length)
+		{
+			p_matrix[i][j].x = rotation_on_z_value_x(m_val, p_matrix[i][j].x_o,
+					p_matrix[i][j].y_o);
+			p_matrix[i][j].y = rotation_on_z_value_y(m_val, p_matrix[i][j].x_o,
+					p_matrix[i][j].y_o);
+			calculations(map_info, p_matrix, i, j);
+			j++;
+		}
+		i++;
 	}
+	absolute_min_values(m_val);
+	center_model(win_info, m_val);
+	set_offsets(win_info->img, map_info->model_values);
 }
 
 void	rotate_model_z(t_fdf_data *fdf_data, int axis, int mode)

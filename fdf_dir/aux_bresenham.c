@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 18:55:01 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/29 23:45:45 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:54:01 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,15 @@ inline void	set_bresenham(t_bresenham *data, t_model_values *model_values,
 	}
 	else
 	{
-		data->x0 = v0.x + model_values->offset_x + model_values->center_x_axis;
-		data->x1 = v1.x + model_values->offset_x + model_values->center_x_axis;
-		data->y0 = v0.y + model_values->offset_y + model_values->center_y_axis;
-		data->y1 = v1.y + model_values->offset_y + model_values->center_y_axis;
+		data->x0 = v0.x_p + model_values->offset_x
+			+ model_values->center_x_axis;
+		data->x1 = v1.x_p + model_values->offset_x
+			+ model_values->center_x_axis;
+		data->y0 = v0.y_p + model_values->offset_y
+			+ model_values->center_y_axis;
+		data->y1 = v1.y_p + model_values->offset_y
+			+ model_values->center_y_axis;
 	}
-	data->z0 = v0.z;
-	data->z1 = v1.z;
+	data->z0 = v0.z_o;
+	data->z1 = v1.z_o;
 }

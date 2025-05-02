@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:53:24 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/04/30 00:39:57 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:42:06 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	draw_cross(t_fdf_data *fdf_data)
 	v1.y = img->height - 1;
 	v1.z = 0;
 	draw_line(img, NULL, v0, v1);
+	printf("F\n");
 }
 
 inline double	spacing_first_angle(mlx_image_t *img, double sum)
