@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 13:18:09 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/05/02 19:22:31 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/05/04 19:01:15 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	change_rotation_axis(t_fdf_data *fdf_data, int rot_axis)
 		model_values->rotation_axis = rot_axis;
 	}
 }
+
 inline double	deg_to_rad(double degrees)
 {
 	return (degrees * (PI_VALUE / 180.0));

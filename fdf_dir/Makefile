@@ -53,7 +53,7 @@ clean:
 fclean: clean
 	@rm -rf $(NAME)
 
-re: clean all
+re: fclean all
 
 run: all
 	XDG_SESSION_TYPE=x11 DISPLAY=:0 ./fdf ../test_maps/42.fdf

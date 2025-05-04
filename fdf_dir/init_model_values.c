@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 20:07:13 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/05/02 18:52:34 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/05/04 19:02:20 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,4 @@ void	init_model_values(t_map_info *map_info)
 	model_values->rotation_axis = 0;
 	model_values->auto_rot = false;
 	model_values->first_angle = false;
-	write(1, "Model values allocated and initialised\n", 40);
 }

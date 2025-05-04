@@ -6,11 +6,24 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:37:44 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/05/02 18:39:50 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/05/04 19:18:57 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static inline void	offsets_and_display(t_window *win_info,
+		t_map_info *map_info, t_coordinates **p_matrix, int quadrant)
+{
+	t_model_values	*m_val;
+
+	m_val = map_info->model_values;
+	absolute_min_values(m_val);
+	center_view_in_quadrant(win_info->img, m_val, quadrant);
+	m_val->offset_x = m_val->min_x;
+	m_val->offset_y = m_val->min_y;
+	display_main_projection(win_info, map_info, p_matrix);
+}
 
 void	draw_raised_view(t_window *win_info, t_map_info *map_info,
 		t_coordinates **p_matrix)
@@ -38,11 +51,7 @@ void	draw_raised_view(t_window *win_info, t_map_info *map_info,
 		}
 		i++;
 	}
-	absolute_min_values(m_val);
-	center_view_in_quadrant(win_info->img, m_val, 1);
-	m_val->offset_x = m_val->min_x;
-	m_val->offset_y = m_val->min_y;
-	display_main_projection(win_info, map_info, p_matrix);
+	offsets_and_display(win_info, map_info, p_matrix, 1);
 }
 
 void	draw_profile_view(t_window *win_info, t_map_info *map_info,
@@ -71,11 +80,7 @@ void	draw_profile_view(t_window *win_info, t_map_info *map_info,
 		}
 		i++;
 	}
-	absolute_min_values(m_val);
-	center_view_in_quadrant(win_info->img, m_val, 2);
-	m_val->offset_x = m_val->min_x;
-	m_val->offset_y = m_val->min_y;
-	display_main_projection(win_info, map_info, p_matrix);
+	offsets_and_display(win_info, map_info, p_matrix, 2);
 }
 
 void	draw_plant_view(t_window *win_info, t_map_info *map_info,
@@ -104,9 +109,5 @@ void	draw_plant_view(t_window *win_info, t_map_info *map_info,
 		}
 		i++;
 	}
-	absolute_min_values(m_val);
-	center_view_in_quadrant(win_info->img, m_val, 3);
-	m_val->offset_x = m_val->min_x;
-	m_val->offset_y = m_val->min_y;
-	display_main_projection(win_info, map_info, p_matrix);
+	offsets_and_display(win_info, map_info, p_matrix, 3);
 }

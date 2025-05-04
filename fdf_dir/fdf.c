@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:52:33 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/05/02 18:53:33 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/05/04 19:33:49 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static void	terminate_fdf(t_fdf_data *fdf_data)
 	t_window	*win_info;
 
 	win_info = fdf_data->win_info;
+	if (win_info->map_dir)
+		closedir(win_info->map_dir);
 	free_back_coord(fdf_data->dis_points);
 	free(fdf_data->map_info->model_values);
 	mlx_delete_image(win_info->window, win_info->img);

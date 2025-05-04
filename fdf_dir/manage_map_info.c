@@ -6,7 +6,7 @@
 /*   By: jose-ara < jose-ara@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 17:00:17 by jose-ara          #+#    #+#             */
-/*   Updated: 2025/05/02 17:40:33 by jose-ara         ###   ########.fr       */
+/*   Updated: 2025/05/04 19:30:28 by jose-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ void	init_map_info(char *file_in, t_map_info *map_info)
 	cont = 0;
 	fd = open(file_in, O_RDONLY);
 	if (fd == -1)
-		exit(EXIT_FAILURE);
+		return (write(2, "Error opening file\n", 19), exit(EXIT_FAILURE));
 	line = get_next_line(fd);
+	if (!line)
+		return (write(2, "Not apropiated file\n", 20), exit(EXIT_FAILURE));
 	map_info->y_length = splitted_len(line);
 	while (line)
 	{
