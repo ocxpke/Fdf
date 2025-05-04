@@ -27,7 +27,6 @@ void	init_model_values(t_map_info *map_info)
 	model_values->min_x = 0;
 	model_values->min_y = 0;
 	model_values->min_z = map_info->lowest_point;
-	printf("LOWWWW: %d\n", model_values->min_z);
 	model_values->center_x_axis = 0;
 	model_values->center_y_axis = 0;
 	model_values->zoom = 1;
@@ -40,5 +39,5 @@ void	init_model_values(t_map_info *map_info)
 	model_values->rotation_axis = 0;
 	model_values->auto_rot = false;
 	model_values->first_angle = false;
-	write(1, "Model values allocated and initialised\n", 39);
+	write(1, "Model values allocated and initialised\n", 40);
 }

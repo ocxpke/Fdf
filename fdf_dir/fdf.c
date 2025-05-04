@@ -62,7 +62,7 @@ int	main(int argc, char **argv)
 	t_fdf_data		fdf_data;
 
 	if (argc != 2)
-		return (-1);
+		return (write(2, "Needs the path of ONE map\n", 27), -1);
 	init_map_info(argv[1], &map_info);
 	dis_points = init_points_matrix(argv[1], &map_info);
 	init_model_values(&map_info);
